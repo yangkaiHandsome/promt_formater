@@ -12,6 +12,8 @@ interface ToolShellProps {
   children: ReactNode;
   /** 点击「Load sample」填入的示例文本 */
   sample?: string;
+  /** 左栏头部额外操作（如上传文件），排在 Load sample 之前 */
+  leftActions?: ReactNode;
 }
 
 /** 复用的双栏骨架：左输入 / 右输出，含清空、字数统计、示例加载 */
@@ -24,6 +26,7 @@ export default function ToolShell({
   toolbar,
   children,
   sample,
+  leftActions,
 }: ToolShellProps) {
   const chars = input.length;
   const words = input.trim() ? input.trim().split(/\s+/).length : 0;
@@ -31,10 +34,14 @@ export default function ToolShell({
   return (
     <div className="grid gap-4 lg:grid-cols-2">
       {/* 左：输入 */}
-      <section className="flex flex-col rounded-xl border border-slate-200 bg-white shadow-sm">
-        <div className="flex items-center justify-between border-b border-slate-100 px-4 py-2">
-          <span className="text-sm font-semibold text-slate-700">{leftLabel}</span>
+      <section className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm ring-1 ring-slate-900/[0.02] transition-shadow focus-within:shadow-md">
+        <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-4 py-2.5">
+          <span className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+            <span className="h-2 w-2 rounded-full bg-brand-500" />
+            {leftLabel}
+          </span>
           <div className="flex items-center gap-2">
+            {leftActions}
             {sample && (
               <button
                 type="button"
@@ -58,20 +65,23 @@ export default function ToolShell({
           onChange={(e) => onInput(e.target.value)}
           placeholder={inputPlaceholder}
           spellCheck={false}
-          className="min-h-[24rem] flex-1 resize-y bg-transparent px-4 py-3 font-mono text-sm text-slate-800 outline-none"
+          className="min-h-[32rem] flex-1 resize-y bg-transparent px-4 py-3 font-mono text-sm leading-relaxed text-slate-800 outline-none lg:min-h-[40rem]"
         />
-        <div className="border-t border-slate-100 px-4 py-1.5 text-right text-xs text-slate-400">
+        <div className="border-t border-slate-100 bg-slate-50/70 px-4 py-1.5 text-right text-xs text-slate-400">
           {words} words · {chars} chars
         </div>
       </section>
 
       {/* 右：输出 */}
-      <section className="flex flex-col rounded-xl border border-slate-200 bg-white shadow-sm">
-        <div className="flex items-center justify-between border-b border-slate-100 px-4 py-2">
-          <span className="text-sm font-semibold text-slate-700">{rightLabel}</span>
+      <section className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm ring-1 ring-slate-900/[0.02]">
+        <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-4 py-2.5">
+          <span className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            {rightLabel}
+          </span>
           <div className="flex items-center gap-2">{toolbar}</div>
         </div>
-        <div className="min-h-[24rem] flex-1 overflow-auto">{children}</div>
+        <div className="min-h-[32rem] flex-1 overflow-auto lg:min-h-[40rem]">{children}</div>
       </section>
     </div>
   );
