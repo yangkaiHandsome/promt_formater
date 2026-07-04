@@ -1,0 +1,27 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import PromptTool from '../components/PromptTool.tsx';
+---
+
+<ToolPage
+  title="Prompt Formatter for ChatGPT & LLMs — Free Online"
+  description="Format and clean up AI prompts online. Unescape \n, pretty-print inline JSON, and separate system/user/assistant roles. Free, private, in-browser."
+  h1="Prompt Formatter for ChatGPT & LLMs"
+  intro="Turn a messy, escaped, single-line prompt into a clean and readable one. Great for debugging ChatGPT, Claude and other LLM prompts pulled from logs or API calls."
+  path="/prompt-formatter"
+>
+  <PromptTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">Make any LLM prompt readable</h2>
+    <p class="mt-2">
+      Prompts copied from request logs are usually one long escaped line. This formatter unescapes the
+      newlines, pretty-prints embedded JSON, and separates each conversation role so you can actually
+      read and debug what was sent to the model.
+    </p>
+    <p class="mt-4">
+      Also need to format the model's Markdown output? Use the
+      <a class="text-brand-600 underline" href="/markdown">Markdown formatter</a>.
+    </p>
+  </Fragment>
+</ToolPage>

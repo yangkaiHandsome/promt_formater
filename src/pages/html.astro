@@ -1,0 +1,38 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import HtmlTool from '../components/HtmlTool.tsx';
+---
+
+<ToolPage
+  title="HTML Viewer & Formatter — Render HTML Online Free"
+  description="Paste HTML to preview it rendered in a safe sandbox, or beautify messy markup instantly. Free online HTML viewer and formatter, runs in your browser."
+  h1="HTML Viewer & Formatter"
+  intro="Paste HTML on the left to see it rendered safely on the right, or switch to Format to beautify messy markup. Rendering happens in a sandboxed iframe — scripts never run."
+  path="/html"
+>
+  <HtmlTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">Preview and format HTML online</h2>
+    <p class="mt-2">
+      This tool does two things: it <strong>renders</strong> your HTML so you can see the result, and
+      it <strong>formats</strong> (beautifies) messy markup with proper indentation. Great for quickly
+      checking a snippet, cleaning up copied code, or learning how a layout behaves.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Is it safe?</h2>
+    <p class="mt-2">
+      Yes. Pasted HTML is sanitized (scripts and event handlers are stripped) and then rendered inside
+      a sandboxed iframe with scripts disabled — so nothing malicious can run against your browser or
+      this page.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Frequently asked questions</h2>
+    <h3 class="mt-4 font-semibold text-slate-800">Will JavaScript in my HTML run?</h3>
+    <p class="mt-1">No. Scripts are removed and the sandbox blocks execution, by design.</p>
+    <h3 class="mt-4 font-semibold text-slate-800">Can I beautify minified HTML?</h3>
+    <p class="mt-1">
+      Yes — switch to the <strong>Format</strong> tab to re-indent and wrap minified or messy markup.
+    </p>
+  </Fragment>
+</ToolPage>

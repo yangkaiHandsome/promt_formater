@@ -1,0 +1,45 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import MarkdownTool from '../components/MarkdownTool.tsx';
+---
+
+<ToolPage
+  title="Markdown Formatter & Live Preview — Free Online"
+  description="Paste Markdown and get an instant, clean HTML preview. Copy the HTML or download the .md file. Free, no sign-up, runs in your browser."
+  h1="Markdown Formatter & Live Preview"
+  intro="Paste Markdown on the left and see a formatted preview on the right in real time. Copy the generated HTML or download your .md file — everything stays in your browser."
+  path="/markdown"
+>
+  <MarkdownTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">What is a Markdown formatter?</h2>
+    <p class="mt-2">
+      Markdown is a lightweight markup language for writing formatted text using plain characters
+      like <code>#</code> for headings and <code>**bold**</code> for emphasis. This tool converts
+      that plain text into clean, rendered HTML so you can preview exactly how it will look.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">How to use it</h2>
+    <ol class="mt-2 list-decimal space-y-1 pl-6">
+      <li>Paste or type your Markdown into the left panel.</li>
+      <li>The formatted preview updates instantly on the right.</li>
+      <li>Click <strong>Copy</strong> to grab the HTML, or <strong>Download .md</strong>.</li>
+    </ol>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Frequently asked questions</h2>
+    <h3 class="mt-4 font-semibold text-slate-800">Is my content uploaded anywhere?</h3>
+    <p class="mt-1">
+      No. All formatting happens locally in your browser — nothing is sent to a server.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Does it support tables and code blocks?</h3>
+    <p class="mt-1">
+      Yes. Tables, fenced code blocks, blockquotes, lists, links and images are all supported.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Can I convert Markdown to HTML?</h3>
+    <p class="mt-1">
+      Yes — the preview is real HTML. Use the Copy button to export it, or try our dedicated
+      <a class="text-brand-600 underline" href="/markdown-to-html">Markdown to HTML converter</a>.
+    </p>
+  </Fragment>
+</ToolPage>

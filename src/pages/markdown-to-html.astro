@@ -1,0 +1,28 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import MarkdownTool from '../components/MarkdownTool.tsx';
+---
+
+<ToolPage
+  title="Markdown to HTML Converter — Free Online"
+  description="Convert Markdown to HTML online for free. Paste Markdown, copy clean HTML instantly. No sign-up, runs in your browser."
+  h1="Markdown to HTML Converter"
+  intro="Paste Markdown on the left and copy the generated HTML on the right. A fast, free, private way to convert Markdown to HTML — no upload, no sign-up."
+  path="/markdown-to-html"
+>
+  <MarkdownTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">Convert Markdown to HTML in one step</h2>
+    <p class="mt-2">
+      Type or paste your Markdown, and the tool renders it to HTML instantly. Click <strong>Copy</strong>
+      to grab the HTML markup for your blog, CMS, email or docs. Headings, lists, tables, links,
+      images and code blocks are all converted.
+    </p>
+    <p class="mt-4">
+      Prefer a live preview while you write? Use the
+      <a class="text-brand-600 underline" href="/markdown">Markdown formatter</a>. Working with HTML
+      instead? Try the <a class="text-brand-600 underline" href="/html">HTML viewer &amp; formatter</a>.
+    </p>
+  </Fragment>
+</ToolPage>

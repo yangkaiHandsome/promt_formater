@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Markdown 预览区域的排版样式（右栏渲染出的 HTML） */
+.md-preview {
+  line-height: 1.7;
+  word-wrap: break-word;
+}
+.md-preview h1 { font-size: 1.75rem; font-weight: 700; margin: 1.2rem 0 0.6rem; }
+.md-preview h2 { font-size: 1.4rem; font-weight: 700; margin: 1.1rem 0 0.5rem; }
+.md-preview h3 { font-size: 1.15rem; font-weight: 600; margin: 1rem 0 0.4rem; }
+.md-preview p { margin: 0.6rem 0; }
+.md-preview a { color: #2d54e0; text-decoration: underline; }
+.md-preview ul { list-style: disc; padding-left: 1.4rem; margin: 0.6rem 0; }
+.md-preview ol { list-style: decimal; padding-left: 1.4rem; margin: 0.6rem 0; }
+.md-preview li { margin: 0.2rem 0; }
+.md-preview blockquote {
+  border-left: 3px solid #cbd5e1;
+  padding-left: 0.9rem;
+  color: #64748b;
+  margin: 0.7rem 0;
+}
+.md-preview code {
+  background: #f1f5f9;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+}
+.md-preview pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 0.9rem 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 0.8rem 0;
+}
+.md-preview pre code { background: transparent; padding: 0; color: inherit; }
+.md-preview table { border-collapse: collapse; margin: 0.8rem 0; width: 100%; }
+.md-preview th, .md-preview td { border: 1px solid #e2e8f0; padding: 0.4rem 0.6rem; }
+.md-preview img { max-width: 100%; height: auto; border-radius: 0.4rem; }
+.md-preview hr { border: none; border-top: 1px solid #e2e8f0; margin: 1.2rem 0; }

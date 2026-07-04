@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { SITE, TOOLS } from '../config';
+
+const tools = Object.values(TOOLS);
+---
+
+<BaseLayout
+  title={`${SITE.name} — Free Markdown, HTML & Prompt Formatters`}
+  description="Free online tools to format Markdown, render HTML safely, and clean up AI prompts. No sign-up, runs entirely in your browser."
+  path="/"
+>
+  <section class="mx-auto max-w-6xl px-4 py-14 text-center">
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+      Format anything, instantly
+    </h1>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
+      Pick a tool below. Paste on the left, see the result on the right. Everything runs in your
+      browser — nothing is uploaded.
+    </p>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-3">
+      {
+        tools.map((t) => (
+          <a
+            href={t.href}
+            class="group flex flex-col rounded-2xl border border-slate-200 bg-white p-8 text-left shadow-sm transition hover:-translate-y-1 hover:border-brand-500 hover:shadow-md"
+          >
+            <span class="text-4xl">{t.emoji}</span>
+            <h2 class="mt-4 text-xl font-bold text-slate-900 group-hover:text-brand-600">
+              {t.title}
+            </h2>
+            <p class="mt-2 text-sm text-slate-600">{t.blurb}</p>
+            <span class="mt-4 text-sm font-semibold text-brand-600">Open tool →</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="mx-auto mt-14 max-w-3xl">
+      <AdSlot />
+    </div>
+  </section>
+</BaseLayout>

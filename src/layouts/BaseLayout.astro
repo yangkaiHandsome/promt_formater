@@ -1,0 +1,81 @@
+---
+import { SITE } from '../config';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** 覆盖 canonical 路径，默认取当前页面路径 */
+  path?: string;
+}
+
+const { title, description, path } = Astro.props;
+const canonical = new URL(path ?? Astro.url.pathname, SITE.domain).toString();
+const fullTitle = title.includes(SITE.name) ? title : `${title} · ${SITE.name}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Twitter：分享和搜索预览 -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- AdSense 脚本位：审核通过并开启后自动加载 -->
+    {
+      SITE.adsenseEnabled && (
+        <script
+          is:inline
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${SITE.adsenseClient}`}
+          crossorigin="anonymous"
+        />
+      )
+    }
+  </head>
+  <body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
+    <header class="border-b border-slate-200 bg-white">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+        <a href="/" class="flex items-center gap-2 text-lg font-bold text-slate-900">
+          <span class="text-brand-600">⌘</span> {SITE.name}
+        </a>
+        <nav class="flex items-center gap-1 text-sm font-medium text-slate-600">
+          <a class="rounded-md px-3 py-1.5 hover:bg-slate-100" href="/markdown">Markdown</a>
+          <a class="rounded-md px-3 py-1.5 hover:bg-slate-100" href="/html">HTML</a>
+          <a class="rounded-md px-3 py-1.5 hover:bg-slate-100" href="/prompt">Prompt</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="mt-16 border-t border-slate-200 bg-white">
+      <div
+        class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm text-slate-500 sm:flex-row"
+      >
+        <p>© {SITE.name} — {SITE.tagline}</p>
+        <nav class="flex gap-4">
+          <a class="hover:text-slate-800" href="/markdown">Markdown</a>
+          <a class="hover:text-slate-800" href="/html">HTML</a>
+          <a class="hover:text-slate-800" href="/prompt">Prompt</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

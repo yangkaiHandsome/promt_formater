@@ -1,0 +1,39 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import PromptTool from '../components/PromptTool.tsx';
+---
+
+<ToolPage
+  title="AI Prompt Formatter — Clean Up ChatGPT & LLM Prompts"
+  description="Format messy AI prompts: unescape \n, pretty-print inline JSON, and split system/user/assistant roles. Free online prompt formatter for debugging LLM prompts."
+  h1="AI Prompt Formatter"
+  intro="Paste a messy debugging prompt on the left — escaped newlines, inline JSON, jumbled roles — and get a clean, readable version on the right. Perfect for inspecting LLM prompts."
+  path="/prompt"
+>
+  <PromptTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">Why format a prompt?</h2>
+    <p class="mt-2">
+      When you copy a prompt out of logs or an API request it's often a single escaped line —
+      <code>\n</code> instead of real line breaks, JSON crammed inline, and system/user/assistant
+      turns run together. This tool untangles all of that so the prompt is actually readable while you
+      debug.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">What it does</h2>
+    <ul class="mt-2 list-disc space-y-1 pl-6">
+      <li><strong>Unescape</strong> literal <code>\n</code>, <code>\t</code> and quotes.</li>
+      <li><strong>Pretty-print</strong> inline JSON payloads.</li>
+      <li><strong>Split roles</strong> — system, user, assistant, tool — onto their own blocks.</li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Frequently asked questions</h2>
+    <h3 class="mt-4 font-semibold text-slate-800">Does it work with ChatGPT / OpenAI prompts?</h3>
+    <p class="mt-1">
+      Yes. It recognizes common role labels used by ChatGPT, Claude and other LLM APIs.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Is anything sent to a server?</h3>
+    <p class="mt-1">No — formatting runs entirely in your browser, so prompts stay private.</p>
+  </Fragment>
+</ToolPage>
