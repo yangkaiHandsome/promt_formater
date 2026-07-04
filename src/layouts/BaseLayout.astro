@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../config';
+import ToolIcon from '../components/ToolIcon.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -51,12 +52,12 @@ const fullTitle = title.includes(SITE.name) ? title : `${title} · ${SITE.name}`
     <header class="border-b border-slate-200 bg-white">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <a href="/" class="flex items-center gap-2 text-lg font-bold text-slate-900">
-          <span class="text-brand-600">⌘</span> {SITE.name}
+          <ToolIcon name="brand" label={`${SITE.name} logo`} class="h-7 w-7" /> {SITE.name}
         </a>
         <nav class="flex items-center gap-1 text-sm font-medium text-slate-600">
+          <a class="rounded-md px-3 py-1.5 hover:bg-slate-100" href="/prompt">Prompt</a>
           <a class="rounded-md px-3 py-1.5 hover:bg-slate-100" href="/markdown">Markdown</a>
           <a class="rounded-md px-3 py-1.5 hover:bg-slate-100" href="/html">HTML</a>
-          <a class="rounded-md px-3 py-1.5 hover:bg-slate-100" href="/prompt">Prompt</a>
         </nav>
       </div>
     </header>
@@ -71,9 +72,9 @@ const fullTitle = title.includes(SITE.name) ? title : `${title} · ${SITE.name}`
       >
         <p>© {SITE.name} — {SITE.tagline}</p>
         <nav class="flex gap-4">
+          <a class="hover:text-slate-800" href="/prompt">Prompt</a>
           <a class="hover:text-slate-800" href="/markdown">Markdown</a>
           <a class="hover:text-slate-800" href="/html">HTML</a>
-          <a class="hover:text-slate-800" href="/prompt">Prompt</a>
         </nav>
       </div>
     </footer>

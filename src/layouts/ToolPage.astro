@@ -22,9 +22,7 @@ const { title, description, h1, intro, path } = Astro.props;
     <!-- 工具本体（React 岛，由各页面通过默认 slot 注入） -->
     <slot />
 
-    <div class="mx-auto my-10 max-w-3xl">
-      <AdSlot />
-    </div>
+    <AdSlot />
 
     <!-- SEO 正文：说明 + FAQ（由页面通过 "content" slot 注入） -->
     <article class="prose-slate mx-auto max-w-3xl text-slate-700">

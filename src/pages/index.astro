@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AdSlot from '../components/AdSlot.astro';
+import ToolIcon from '../components/ToolIcon.astro';
 import { SITE, TOOLS } from '../config';
 
 const tools = Object.values(TOOLS);
@@ -27,7 +28,9 @@ const tools = Object.values(TOOLS);
             href={t.href}
             class="group flex flex-col rounded-2xl border border-slate-200 bg-white p-8 text-left shadow-sm transition hover:-translate-y-1 hover:border-brand-500 hover:shadow-md"
           >
-            <span class="text-4xl">{t.emoji}</span>
+            <span class="grid h-12 w-12 place-items-center rounded-xl border border-slate-200 bg-white shadow-sm ring-4 ring-slate-50 transition group-hover:border-brand-100 group-hover:ring-brand-50">
+              <ToolIcon name={t.icon} label={`${t.title} icon`} class="h-9 w-9" />
+            </span>
             <h2 class="mt-4 text-xl font-bold text-slate-900 group-hover:text-brand-600">
               {t.title}
             </h2>
@@ -38,8 +41,6 @@ const tools = Object.values(TOOLS);
       }
     </div>
 
-    <div class="mx-auto mt-14 max-w-3xl">
-      <AdSlot />
-    </div>
+    <AdSlot />
   </section>
 </BaseLayout>
