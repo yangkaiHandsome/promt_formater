@@ -3,7 +3,7 @@
 export const SITE = {
   name: 'FormatTools',
   tagline: 'Free online formatters — Markdown, HTML & AI Prompts',
-  domain: 'https://formattools.pages.dev',
+  domain: 'https://promptformatter.top',
   // AdSense 审核通过、拿到 publisher id 后填这里并把 enabled 改成 true
   adsenseClient: 'ca-pub-0000000000000000',
   adsenseEnabled: false,
