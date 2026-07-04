@@ -1,13 +1,14 @@
 ---
 import ToolPage from '../layouts/ToolPage.astro';
 import PromptTool from '../components/PromptTool.tsx';
+import PromptToolLinks from '../components/PromptToolLinks.astro';
 ---
 
 <ToolPage
-  title="AI Prompt Formatter — Clean Up ChatGPT & LLM Prompts"
-  description="Format messy AI prompts: unescape \n, pretty-print inline JSON, and split system/user/assistant roles. Free online prompt formatter for debugging LLM prompts."
-  h1="AI Prompt Formatter"
-  intro="Paste a messy debugging prompt on the left — escaped newlines, inline JSON, jumbled roles — and get a clean, readable version on the right. Perfect for inspecting LLM prompts."
+  title="AI Prompt Formatter — Make Logged LLM Prompts Readable"
+  description="Paste a messy, escaped prompt from your logs and get a clean conversation: unescape \n, pretty-print inline JSON, and split system/user/assistant roles. Free, private, in-browser."
+  h1="Make Your Logged LLM Prompts Readable"
+  intro="You log a prompt to debug it — and the console shows one giant escaped line with the roles mashed together. Paste that mess on the left and get a clean, color-coded conversation on the right. For AI engineers."
   path="/prompt"
 >
   <PromptTool client:only="react" />
@@ -35,5 +36,7 @@ import PromptTool from '../components/PromptTool.tsx';
     </p>
     <h3 class="mt-4 font-semibold text-slate-800">Is anything sent to a server?</h3>
     <p class="mt-1">No — formatting runs entirely in your browser, so prompts stay private.</p>
+
+    <PromptToolLinks current="/prompt" />
   </Fragment>
 </ToolPage>

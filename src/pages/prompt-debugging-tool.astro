@@ -1,0 +1,40 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import PromptTool from '../components/PromptTool.tsx';
+---
+
+<ToolPage
+  title="Prompt Debugging Tool — Inspect What You Sent the LLM"
+  description="A free prompt debugging tool for AI engineers. Unescape, pretty-print inline JSON and split roles so you can see exactly what your app sent the model. Runs in your browser."
+  h1="Prompt Debugging Tool"
+  intro="Debug LLM prompts by seeing exactly what your app sent the model. Paste a raw, escaped prompt and get a clean, role-by-role view — the fastest way to spot a wrong system prompt, a missing variable, or malformed JSON."
+  path="/prompt-debugging-tool"
+>
+  <PromptTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">Debug prompts by reading them</h2>
+    <p class="mt-2">
+      Most prompt bugs are invisible until you can actually read the final prompt: a template
+      variable that never got filled in, a system prompt overwritten by a later call, or a JSON tool
+      argument that's malformed. This tool renders the raw prompt clearly so those mistakes jump out.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">What it helps you catch</h2>
+    <ul class="mt-2 list-disc space-y-1 pl-6">
+      <li>Unfilled template variables and stray placeholders</li>
+      <li>Wrong or duplicated system prompts</li>
+      <li>Malformed inline JSON in tool / function calls</li>
+      <li>Roles in the wrong order or merged together</li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">FAQ</h2>
+    <h3 class="mt-4 font-semibold text-slate-800">Do you store my prompts?</h3>
+    <p class="mt-1">No. It's fully client-side — nothing is uploaded or stored.</p>
+    <h3 class="mt-4 font-semibold text-slate-800">Straight from a log line?</h3>
+    <p class="mt-1">
+      Yes —
+      <a class="text-brand-600 underline" href="/read-prompt-from-logs">read a prompt from your logs</a>.
+    </p>
+  </Fragment>
+</ToolPage>

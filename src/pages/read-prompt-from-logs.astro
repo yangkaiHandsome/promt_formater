@@ -1,0 +1,43 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import PromptTool from '../components/PromptTool.tsx';
+---
+
+<ToolPage
+  title="Read an LLM Prompt From Your Logs — Prompt Log Formatter"
+  description="Pulled a prompt out of your application logs and it's an unreadable escaped line? Paste it here to get a clean, role-by-role conversation. Free prompt log formatter, in-browser."
+  h1="Read a Prompt From Your Logs"
+  intro="AI engineers log their prompts to debug them — but in the console they arrive as one giant escaped line with the roles mashed together. Paste that log line here and get a clean, readable conversation back."
+  path="/read-prompt-from-logs"
+>
+  <PromptTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">The logged-prompt problem</h2>
+    <p class="mt-2">
+      You add a <code>console.log</code> or a logger line to see exactly what you're sending the
+      model. Then you open the logs and it's unreadable: <code>\n</code> everywhere instead of line
+      breaks, JSON payloads crammed inline, and the system, user and assistant turns fused into one
+      wall of text. Figuring out what actually went to the model means hand-unescaping a string.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Paste the log line, read the prompt</h2>
+    <p class="mt-2">
+      This tool does the untangling for you — it unescapes the newlines and quotes, pretty-prints
+      inline JSON, and splits each role into its own labeled, color-coded block, so a copied log line
+      becomes a conversation you can scan in seconds.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">FAQ</h2>
+    <h3 class="mt-4 font-semibold text-slate-800">Can I paste production logs?</h3>
+    <p class="mt-1">
+      Yes — nothing leaves your browser, so real production prompts and data stay private.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Which APIs work?</h3>
+    <p class="mt-1">
+      OpenAI, Claude and other LLM formats. See
+      <a class="text-brand-600 underline" href="/format-openai-prompt">OpenAI</a> and
+      <a class="text-brand-600 underline" href="/format-claude-prompt">Claude</a> guides.
+    </p>
+  </Fragment>
+</ToolPage>

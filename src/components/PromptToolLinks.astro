@@ -1,0 +1,38 @@
+---
+// 复用的 Prompt 落地页内链区：把所有 prompt 主题页互相连起来，
+// 让搜索引擎能顺着链接抓取（避免孤岛页），并在主题簇内传递权重。
+// current 传入当前页 href，用于隐藏指向自己的链接。
+interface Props {
+  current?: string;
+}
+const { current } = Astro.props;
+
+const LINKS: { href: string; label: string; blurb: string }[] = [
+  { href: '/prompt-formatter', label: 'Prompt Formatter', blurb: 'Clean up any messy LLM prompt.' },
+  { href: '/read-prompt-from-logs', label: 'Read a Prompt From Logs', blurb: 'Turn a logged line into a conversation.' },
+  { href: '/unescape-prompt', label: 'Unescape Prompt', blurb: 'Restore real line breaks from \\n.' },
+  { href: '/format-openai-prompt', label: 'Format OpenAI Prompt', blurb: 'Read ChatGPT API requests.' },
+  { href: '/format-claude-prompt', label: 'Format Claude Prompt', blurb: 'Read Anthropic API requests.' },
+  { href: '/pretty-print-prompt-json', label: 'Pretty-Print Prompt JSON', blurb: 'Indent inline JSON payloads.' },
+  { href: '/prompt-debugging-tool', label: 'Prompt Debugging Tool', blurb: 'Spot what your app really sent.' },
+];
+
+const links = LINKS.filter((l) => l.href !== current);
+---
+
+<section class="mt-10 not-prose">
+  <h2 class="text-xl font-bold text-slate-900">Related prompt tools</h2>
+  <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+    {links.map((l) => (
+      <li>
+        <a
+          href={l.href}
+          class="block rounded-lg border border-slate-200 p-3 transition hover:border-brand-400 hover:bg-slate-50"
+        >
+          <span class="font-semibold text-brand-600">{l.label}</span>
+          <span class="mt-0.5 block text-sm text-slate-600">{l.blurb}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

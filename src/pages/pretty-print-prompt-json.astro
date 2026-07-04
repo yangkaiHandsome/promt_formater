@@ -1,0 +1,40 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import PromptTool from '../components/PromptTool.tsx';
+---
+
+<ToolPage
+  title="Pretty-Print JSON Inside a Prompt — LLM Payload Formatter"
+  description="Prompt with inline JSON crammed onto one line? Pretty-print the embedded JSON — tool calls, function arguments and payloads — while keeping the conversation readable. Free, in-browser."
+  h1="Pretty-Print JSON Inside a Prompt"
+  intro="LLM prompts often carry JSON inline — tool arguments, function calls, structured context — all squashed onto one line. Paste the prompt and get the embedded JSON pretty-printed and the roles laid out cleanly."
+  path="/pretty-print-prompt-json"
+>
+  <PromptTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">JSON and prompt, both readable</h2>
+    <p class="mt-2">
+      A generic JSON formatter chokes on a prompt, because the JSON is buried inside conversational
+      text and escaped strings. This tool handles both at once: it finds the inline JSON payloads,
+      indents them properly, and keeps the surrounding system/user/assistant turns intact and
+      separated.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Great for</h2>
+    <ul class="mt-2 list-disc space-y-1 pl-6">
+      <li>Tool-call and function-call arguments</li>
+      <li>Structured context or RAG chunks passed as JSON</li>
+      <li>API request bodies copied from logs</li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">FAQ</h2>
+    <h3 class="mt-4 font-semibold text-slate-800">Is it private?</h3>
+    <p class="mt-1">Yes — all formatting runs in your browser, nothing is uploaded.</p>
+    <h3 class="mt-4 font-semibold text-slate-800">Just need to unescape?</h3>
+    <p class="mt-1">
+      Try the simpler
+      <a class="text-brand-600 underline" href="/unescape-prompt">unescape prompt</a> tool.
+    </p>
+  </Fragment>
+</ToolPage>

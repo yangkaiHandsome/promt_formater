@@ -1,0 +1,41 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import PromptTool from '../components/PromptTool.tsx';
+---
+
+<ToolPage
+  title="Format OpenAI Prompt — Read ChatGPT API Requests Clearly"
+  description="Format an OpenAI / ChatGPT API prompt copied from your logs. Unescape \n, pretty-print the messages array, and split system, user and assistant roles. Free and private."
+  h1="Format an OpenAI Prompt"
+  intro="Debugging an OpenAI or ChatGPT API call? Paste the messages payload from your logs and get a clean, role-by-role conversation you can actually read — system, user and assistant, each on its own block."
+  path="/format-openai-prompt"
+>
+  <PromptTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">Made for the OpenAI messages format</h2>
+    <p class="mt-2">
+      OpenAI's Chat Completions API sends a <code>messages</code> array of
+      <code>role</code> / <code>content</code> objects. When that lands in your logs it's a single
+      escaped line. This tool understands the shape: it unescapes the content, pretty-prints any
+      inline JSON (including tool/function arguments), and lays out each role as a labeled block.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Roles it recognizes</h2>
+    <ul class="mt-2 list-disc space-y-1 pl-6">
+      <li><strong>system</strong> — your instructions to the model</li>
+      <li><strong>user</strong> — the end-user turn</li>
+      <li><strong>assistant</strong> — the model's reply</li>
+      <li><strong>tool</strong> / function calls — with arguments pretty-printed</li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">FAQ</h2>
+    <h3 class="mt-4 font-semibold text-slate-800">Does it send my prompt to a server?</h3>
+    <p class="mt-1">No. It runs 100% in your browser, so your OpenAI prompts stay private.</p>
+    <h3 class="mt-4 font-semibold text-slate-800">Using Claude instead?</h3>
+    <p class="mt-1">
+      The same tool works for Anthropic —
+      <a class="text-brand-600 underline" href="/format-claude-prompt">format a Claude prompt</a>.
+    </p>
+  </Fragment>
+</ToolPage>

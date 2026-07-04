@@ -1,0 +1,40 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import PromptTool from '../components/PromptTool.tsx';
+---
+
+<ToolPage
+  title="Format Claude Prompt — Read Anthropic API Requests Clearly"
+  description="Format a Claude / Anthropic API prompt from your logs. Unescape \n, pretty-print content blocks and tool calls, and split system, user and assistant turns. Free, in-browser."
+  h1="Format a Claude Prompt"
+  intro="Inspecting an Anthropic Claude API call? Paste the request from your logs and get a clean, readable conversation — system prompt, user and assistant turns, and tool calls, each clearly separated."
+  path="/format-claude-prompt"
+>
+  <PromptTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">Built for Anthropic's message format</h2>
+    <p class="mt-2">
+      Claude's Messages API uses a top-level <code>system</code> prompt plus a list of
+      <code>user</code> and <code>assistant</code> turns, where content can be blocks of text or
+      tool use. Pulled from a log it's one escaped line. This tool unescapes it, pretty-prints the
+      JSON content blocks and tool inputs, and renders each turn as its own labeled block.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">What you get</h2>
+    <ul class="mt-2 list-disc space-y-1 pl-6">
+      <li>Real line breaks instead of <code>\n</code></li>
+      <li>Pretty-printed tool inputs / JSON content</li>
+      <li>System, user and assistant turns split apart and color-coded</li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">FAQ</h2>
+    <h3 class="mt-4 font-semibold text-slate-800">Is my prompt uploaded anywhere?</h3>
+    <p class="mt-1">No — formatting happens entirely in your browser, so Claude prompts stay private.</p>
+    <h3 class="mt-4 font-semibold text-slate-800">Working with OpenAI too?</h3>
+    <p class="mt-1">
+      Same tool, OpenAI format:
+      <a class="text-brand-600 underline" href="/format-openai-prompt">format an OpenAI prompt</a>.
+    </p>
+  </Fragment>
+</ToolPage>

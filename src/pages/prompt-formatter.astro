@@ -1,6 +1,7 @@
 ---
 import ToolPage from '../layouts/ToolPage.astro';
 import PromptTool from '../components/PromptTool.tsx';
+import PromptToolLinks from '../components/PromptToolLinks.astro';
 ---
 
 <ToolPage
@@ -23,5 +24,7 @@ import PromptTool from '../components/PromptTool.tsx';
       Also need to format the model's Markdown output? Use the
       <a class="text-brand-600 underline" href="/markdown">Markdown formatter</a>.
     </p>
+
+    <PromptToolLinks current="/prompt-formatter" />
   </Fragment>
 </ToolPage>
