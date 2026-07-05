@@ -6,6 +6,8 @@ import ToolPage from '../layouts/ToolPage.astro';
 import PromptTool from '../components/PromptTool.tsx';
 import MarkdownTool from '../components/MarkdownTool.tsx';
 import HtmlTool from '../components/HtmlTool.tsx';
+import JsonTool from '../components/JsonTool.tsx';
+import DiffTool from '../components/DiffTool.tsx';
 import { LANDINGS, relatedLandings, GROUP_HOME, type Landing } from '../data/landings';
 
 export function getStaticPaths() {
@@ -32,6 +34,8 @@ const home = GROUP_HOME[landing.group];
   {landing.group === 'prompt' && <PromptTool client:only="react" />}
   {landing.group === 'markdown' && <MarkdownTool client:only="react" />}
   {landing.group === 'html' && <HtmlTool client:only="react" />}
+  {landing.group === 'json' && <JsonTool client:only="react" />}
+  {landing.group === 'diff' && <DiffTool client:only="react" />}
 
   <Fragment slot="content">
     {

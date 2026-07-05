@@ -1,5 +1,5 @@
 ---
-type IconName = 'brand' | 'prompt' | 'markdown' | 'html';
+type IconName = 'brand' | 'prompt' | 'markdown' | 'html' | 'json' | 'diff';
 
 interface Props {
   name: IconName;
@@ -95,6 +95,49 @@ const titleId = label ? `tool-icon-${name}` : undefined;
       <path d="m22 27-5 4 5 4M34 27l5 4-5 4" stroke="#2D54E0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
       <path d="m31 25-6 12" stroke="#0F9F6E" stroke-width="2.6" stroke-linecap="round" />
       <path d="M17 40h22" stroke="#E2E8F0" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  )
+}
+
+{
+  name === 'json' && (
+    <svg
+      class={className}
+      viewBox="0 0 56 56"
+      fill="none"
+      role={label ? 'img' : 'presentation'}
+      aria-hidden={label ? undefined : 'true'}
+      aria-labelledby={titleId}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {label && <title id={titleId}>{label}</title>}
+      <rect x="11" y="9" width="34" height="38" rx="7" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" />
+      <path d="M23 16c-4 0-4 3.5-4 6s0 6-4 6c4 0 4 3.5 4 6s0 6 4 6" stroke="#2D54E0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M33 16c4 0 4 3.5 4 6s0 6 4 6c-4 0-4 3.5-4 6s0 6-4 6" stroke="#0F9F6E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="28" cy="28" r="1.8" fill="#64748B" />
+    </svg>
+  )
+}
+
+{
+  name === 'diff' && (
+    <svg
+      class={className}
+      viewBox="0 0 56 56"
+      fill="none"
+      role={label ? 'img' : 'presentation'}
+      aria-hidden={label ? undefined : 'true'}
+      aria-labelledby={titleId}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {label && <title id={titleId}>{label}</title>}
+      <rect x="8" y="11" width="17" height="34" rx="4" fill="#FEF2F2" stroke="#CBD5E1" stroke-width="2" />
+      <rect x="31" y="11" width="17" height="34" rx="4" fill="#F0FDF4" stroke="#CBD5E1" stroke-width="2" />
+      <path d="M12 19h9M12 25h9M12 31h6" stroke="#DC2626" stroke-width="2.2" stroke-linecap="round" />
+      <path d="M35 19h9M35 25h6M35 31h9" stroke="#16A34A" stroke-width="2.2" stroke-linecap="round" />
+      <path d="M16.5 38.5h-2.5M15.25 37.25v2.5" stroke="#DC2626" stroke-width="2" stroke-linecap="round" />
+      <path d="M39 38.5h4" stroke="#16A34A" stroke-width="2" stroke-linecap="round" />
+      <path d="M41 36.5v4" stroke="#16A34A" stroke-width="2" stroke-linecap="round" />
     </svg>
   )
 }

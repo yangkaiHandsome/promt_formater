@@ -19,7 +19,7 @@ export const SITE = {
   adsenseEnabled: false,
 } as const;
 
-export type ToolKey = 'prompt' | 'markdown' | 'html';
+export type ToolKey = 'prompt' | 'markdown' | 'html' | 'json' | 'diff';
 
 // 顺序即首页卡片与导航的展示顺序 —— Prompt 放第一位（核心差异化功能）
 export const TOOLS: Record<
@@ -46,5 +46,19 @@ export const TOOLS: Record<
     blurb: 'Paste HTML to render it safely in a sandbox, or beautify messy markup instantly.',
     icon: 'html',
     href: '/html',
+  },
+  json: {
+    key: 'json',
+    title: 'JSON Formatter & Validator',
+    blurb: 'Beautify, minify and validate JSON with instant error locations and syntax highlighting.',
+    icon: 'json',
+    href: '/json',
+  },
+  diff: {
+    key: 'diff',
+    title: 'Text Diff Checker',
+    blurb: 'Compare two texts side by side and highlight every added, removed and changed line.',
+    icon: 'diff',
+    href: '/diff',
   },
 };

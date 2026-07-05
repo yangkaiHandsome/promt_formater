@@ -1,0 +1,66 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import JsonTool from '../components/JsonTool.tsx';
+import LandingLinks from '../components/LandingLinks.astro';
+---
+
+<ToolPage
+  title="JSON Formatter & Validator — Free Online"
+  description="Format, validate and minify JSON online for free. Paste your JSON to beautify it with syntax highlighting, get instant error locations, or minify in one click. Runs in your browser."
+  h1="JSON Formatter & Validator"
+  intro="Paste JSON on the left and get clean, indented output with syntax highlighting on the right. Invalid JSON is flagged instantly with the exact line and column, and you can minify or download the result — everything stays in your browser."
+  path="/json"
+  faq={[
+    {
+      q: 'Is my JSON uploaded anywhere?',
+      a: 'No. Parsing, formatting and validation all happen locally in your browser — nothing is sent to a server.',
+    },
+    {
+      q: 'How does it show where my JSON is invalid?',
+      a: 'When JSON fails to parse, the tool reports the error message along with the line and column where the problem was detected, so you can jump straight to it.',
+    },
+    {
+      q: 'Can I minify JSON as well as beautify it?',
+      a: 'Yes. Switch to Minify to strip all whitespace into a single compact line, or use Beautify with 2 spaces, 4 spaces or tabs.',
+    },
+  ]}
+>
+  <JsonTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">What is a JSON formatter?</h2>
+    <p class="mt-2">
+      JSON (JavaScript Object Notation) is the most common format for APIs, config files and data
+      exchange. A JSON formatter takes raw or minified JSON and re-indents it into a clean, nested
+      structure that is easy to read — while a validator checks that the syntax is correct and points
+      out exactly where it breaks.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">How to use it</h2>
+    <ol class="mt-2 list-decimal space-y-1 pl-6">
+      <li>Paste or upload your JSON into the left panel.</li>
+      <li>The formatted, syntax-highlighted result appears on the right instantly.</li>
+      <li>Pick <strong>Beautify</strong> with your preferred indent, or <strong>Minify</strong> to compact it.</li>
+      <li>Click <strong>Copy</strong> or <strong>Download</strong> to save the result.</li>
+    </ol>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Frequently asked questions</h2>
+    <h3 class="mt-4 font-semibold text-slate-800">Is my JSON uploaded anywhere?</h3>
+    <p class="mt-1">
+      No. Parsing, formatting and validation all happen locally in your browser — nothing is sent to
+      a server.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">How does it show where my JSON is invalid?</h3>
+    <p class="mt-1">
+      When JSON fails to parse, the tool reports the error message along with the line and column
+      where the problem was detected, so you can jump straight to it.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Can I minify JSON as well as beautify it?</h3>
+    <p class="mt-1">
+      Yes. Switch to Minify to strip all whitespace into a single compact line, or use Beautify with
+      2 spaces, 4 spaces or tabs.
+    </p>
+
+    <LandingLinks group="json" heading="More JSON tools" />
+  </Fragment>
+</ToolPage>

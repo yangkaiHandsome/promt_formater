@@ -1,0 +1,65 @@
+---
+import ToolPage from '../layouts/ToolPage.astro';
+import DiffTool from '../components/DiffTool.tsx';
+import LandingLinks from '../components/LandingLinks.astro';
+---
+
+<ToolPage
+  title="Text Diff Checker — Compare Two Texts Online"
+  description="Compare two texts online for free. Paste an original and a changed version to highlight every added, removed and modified line, with word-level changes. Runs in your browser."
+  h1="Text Diff Checker"
+  intro="Paste an original text on the left and the changed version on the right to see exactly what was added, removed or modified — line by line, down to the individual word. Switch between split and unified views, and share a link to your comparison. Everything stays in your browser."
+  path="/diff"
+  faq={[
+    {
+      q: 'Is my text uploaded anywhere?',
+      a: 'No. The comparison runs entirely in your browser — nothing you paste is sent to a server unless you choose to create a shareable link.',
+    },
+    {
+      q: 'Can I see word-level changes, not just whole lines?',
+      a: 'Yes. When a line is modified rather than fully added or removed, the specific words that changed are highlighted within the line.',
+    },
+    {
+      q: 'How does the shareable link work?',
+      a: 'The Copy shareable link button encodes both texts into the URL itself, so opening that link restores the same comparison. The data lives in the link, not on our servers.',
+    },
+  ]}
+>
+  <DiffTool client:only="react" />
+
+  <Fragment slot="content">
+    <h2 class="mt-8 text-xl font-bold text-slate-900">What is a diff checker?</h2>
+    <p class="mt-2">
+      A diff checker compares two pieces of text and shows precisely how they differ — which lines
+      were added, which were removed, and which were changed. It is indispensable for reviewing edits
+      to code, contracts, configuration files, articles or any text where a small change matters.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">How to use it</h2>
+    <ol class="mt-2 list-decimal space-y-1 pl-6">
+      <li>Paste the original text into the left panel and the changed text into the right.</li>
+      <li>Added lines are highlighted in green, removed lines in red, with changed words marked inline.</li>
+      <li>Toggle <strong>Ignore case</strong> or <strong>Ignore whitespace</strong> to focus on meaningful changes.</li>
+      <li>Switch between <strong>Split</strong> and <strong>Unified</strong> views, or copy a shareable link.</li>
+    </ol>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Frequently asked questions</h2>
+    <h3 class="mt-4 font-semibold text-slate-800">Is my text uploaded anywhere?</h3>
+    <p class="mt-1">
+      No. The comparison runs entirely in your browser — nothing you paste is sent to a server unless
+      you choose to create a shareable link.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Can I see word-level changes, not just whole lines?</h3>
+    <p class="mt-1">
+      Yes. When a line is modified rather than fully added or removed, the specific words that changed
+      are highlighted within the line.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">How does the shareable link work?</h3>
+    <p class="mt-1">
+      The Copy shareable link button encodes both texts into the URL itself, so opening that link
+      restores the same comparison. The data lives in the link, not on our servers.
+    </p>
+
+    <LandingLinks group="diff" heading="More comparison tools" />
+  </Fragment>
+</ToolPage>

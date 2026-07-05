@@ -9,7 +9,7 @@
 //
 // slug 不能与 src/pages/ 下已有的 .astro 文件同名（会造成路由冲突）。
 
-export type ToolGroup = 'prompt' | 'markdown' | 'html';
+export type ToolGroup = 'prompt' | 'markdown' | 'html' | 'json' | 'diff';
 
 export interface Landing {
   slug: string;
@@ -605,6 +605,310 @@ export const LANDINGS: Landing[] = [
       },
     ],
   },
+
+  // ---------------- JSON 意图簇（复用 JsonTool：格式化 / 校验 / 压缩） ----------------
+  {
+    slug: 'json-validator',
+    group: 'json',
+    title: 'JSON Validator Online — Check & Fix JSON Errors',
+    description:
+      'Validate JSON online for free. Paste your JSON and instantly see whether it is valid, with the exact line and column of any syntax error. Private, in-browser.',
+    h1: 'JSON Validator',
+    intro:
+      'Paste JSON and find out immediately whether it is valid. When it is not, the validator points to the exact line and column where parsing failed, so you can fix a stray comma or missing bracket in seconds.',
+    sections: [
+      {
+        h2: 'Catch the error, not just the fact that there is one',
+        html: '<p>A generic “invalid JSON” message is useless when you are staring at a thousand lines. This validator parses your input and reports the precise line and column of the first problem, along with the underlying error, so you know exactly where to look.</p>',
+      },
+      {
+        h2: 'Common mistakes it flags',
+        html: '<ul><li>Trailing commas after the last item</li><li>Missing or mismatched brackets and braces</li><li>Single quotes instead of double quotes</li><li>Unquoted keys and unescaped control characters</li></ul>',
+      },
+    ],
+    faq: [
+      {
+        q: 'How do I know where my JSON is broken?',
+        a: 'When JSON fails to parse, the validator reports the error message along with the line and column where the problem was detected, so you can jump straight to it.',
+      },
+      {
+        q: 'Is my data sent to a server?',
+        a: 'No. Validation runs entirely in your browser, so nothing you paste is uploaded or stored.',
+      },
+    ],
+  },
+  {
+    slug: 'json-beautifier',
+    group: 'json',
+    title: 'JSON Beautifier — Format & Indent JSON Online',
+    description:
+      'Beautify JSON online for free. Paste minified or messy JSON and get clean, indented, syntax-highlighted output. Choose 2 spaces, 4 spaces or tabs. In-browser.',
+    h1: 'JSON Beautifier',
+    intro:
+      'Turn cramped, single-line or inconsistently indented JSON into clean, readable structure. Paste your JSON and get beautifully indented, syntax-highlighted output you can copy or download.',
+    sections: [
+      {
+        h2: 'Readable structure at a glance',
+        html: '<p>JSON pulled from an API response or a log line is often one dense string. Beautifying re-indents every nested object and array so the hierarchy is obvious, with colors that separate keys, strings, numbers and booleans.</p>',
+      },
+      {
+        h2: 'Your indentation, your choice',
+        html: '<p>Pick 2 spaces, 4 spaces or tabs to match your project style. The formatted result updates instantly and can be copied straight back into your editor.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'Can I choose the indentation size?',
+        a: 'Yes. Switch between 2 spaces, 4 spaces or tabs, and the beautified output updates instantly.',
+      },
+      {
+        q: 'Does beautifying change my data?',
+        a: 'No. It only adds whitespace and line breaks for readability — the keys, values and structure stay exactly the same.',
+      },
+    ],
+  },
+  {
+    slug: 'json-minifier',
+    group: 'json',
+    title: 'JSON Minifier — Compress JSON Online Free',
+    description:
+      'Minify JSON online for free. Paste formatted JSON and strip all whitespace into a single compact line to shrink payloads. Fast, private, in-browser.',
+    h1: 'JSON Minifier',
+    intro:
+      'Compress JSON by removing every unnecessary space and line break. Paste your formatted JSON and get a single compact line that is smaller to store and faster to send over the wire.',
+    sections: [
+      {
+        h2: 'Smaller payloads, same data',
+        html: '<p>Whitespace makes JSON readable but adds bytes. Minifying collapses your JSON into one line with no indentation, which reduces file size and request payloads without changing a single value.</p>',
+      },
+      {
+        h2: 'Validate while you compress',
+        html: '<p>The minifier parses your input first, so if the JSON is invalid you will see the error and its location instead of a broken one-liner. Copy or download the compact result when it checks out.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'Does minifying JSON lose any data?',
+        a: 'No. Minifying only removes whitespace and line breaks; every key and value is preserved exactly.',
+      },
+      {
+        q: 'What if my JSON is invalid?',
+        a: 'The tool parses your JSON before minifying, so invalid input is flagged with its error location rather than producing a broken result.',
+      },
+    ],
+  },
+  {
+    slug: 'json-viewer',
+    group: 'json',
+    title: 'JSON Viewer Online — Read & Explore JSON',
+    description:
+      'A free online JSON viewer. Paste raw or minified JSON to read it as clean, indented, color-highlighted text instead of a wall of characters. Private, in-browser.',
+    h1: 'Online JSON Viewer',
+    intro:
+      'Reading raw JSON — especially a minified API response — is painful. Paste it here to view it as clean, indented, syntax-highlighted text you can actually scan and understand.',
+    sections: [
+      {
+        h2: 'Make an API response readable',
+        html: '<p>Responses copied from a browser network tab or a curl command often arrive as one long line. The viewer expands and highlights them so you can trace nested objects and arrays without counting brackets by hand.</p>',
+      },
+      {
+        h2: 'Nothing to install',
+        html: '<p>There is no extension to add and no file to upload — paste the JSON and read it. It works on any device with a browser, and your data never leaves it.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'Can I view minified JSON?',
+        a: 'Yes. Paste minified or single-line JSON and the viewer expands it into clean, indented, highlighted text.',
+      },
+      {
+        q: 'Is my JSON uploaded?',
+        a: 'No. Rendering happens locally in your browser; nothing you paste is sent anywhere.',
+      },
+    ],
+  },
+  {
+    slug: 'json-pretty-print',
+    group: 'json',
+    title: 'JSON Pretty Print — Format JSON Nicely Online',
+    description:
+      'Pretty print JSON online for free. Paste raw JSON and get neatly indented, color-highlighted output with your choice of spacing. Fast and private, in your browser.',
+    h1: 'JSON Pretty Print',
+    intro:
+      'Pretty-print raw or generated JSON into neatly indented, easy-to-scan output. Paste your JSON, choose your spacing, and copy the tidy, highlighted result.',
+    sections: [
+      {
+        h2: 'From raw string to tidy JSON',
+        html: '<p>JSON generated by code, exported from a tool or copied from a log is usually correct but hard to read. Pretty-printing gives it consistent indentation and clear syntax colors so it is pleasant to review and debug.</p>',
+      },
+      {
+        h2: 'Copy the clean version back',
+        html: '<p>Once printed, copy the formatted JSON straight into your project, or download it as a <code>.json</code> file. The whole process runs locally in your browser.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is pretty print the same as beautify?',
+        a: 'Yes. Both mean adding indentation and line breaks so JSON is easier for humans to read.',
+      },
+      {
+        q: 'Can I control the spacing?',
+        a: 'Yes. Choose 2 spaces, 4 spaces or tabs, and the pretty-printed output updates instantly.',
+      },
+    ],
+  },
+
+  // ---------------- Diff 意图簇（复用 DiffTool：两段文本对比） ----------------
+  {
+    slug: 'text-compare',
+    group: 'diff',
+    title: 'Text Compare — Find the Difference Between Two Texts',
+    description:
+      'Compare two blocks of text online for free. Paste both versions to see added, removed and changed lines highlighted instantly, with word-level detail. In-browser.',
+    h1: 'Text Compare Tool',
+    intro:
+      'Paste two versions of any text and instantly see what changed between them. Added and removed lines are color-coded, and modified lines show exactly which words differ.',
+    sections: [
+      {
+        h2: 'Spot every change at a glance',
+        html: '<p>Comparing two versions by eye is slow and error-prone. This tool aligns the texts line by line and highlights the differences, so a moved sentence, a deleted clause or a single changed number is immediately obvious.</p>',
+      },
+      {
+        h2: 'Down to the word',
+        html: '<p>When a line is edited rather than added or removed, the specific words that changed are marked inside the line — so you see the substance of the edit, not just that the line is different.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'Can I compare two paragraphs of text?',
+        a: 'Yes. Paste each version into a panel and the tool highlights added, removed and changed lines, with the changed words marked inside modified lines.',
+      },
+      {
+        q: 'Is my text kept private?',
+        a: 'Yes. The comparison runs entirely in your browser and nothing is uploaded unless you deliberately create a shareable link.',
+      },
+    ],
+  },
+  {
+    slug: 'diff-checker',
+    group: 'diff',
+    title: 'Diff Checker Online — Compare Text & Code Differences',
+    description:
+      'A free online diff checker. Paste an original and a modified version to compare differences line by line, with split and unified views. Runs in your browser.',
+    h1: 'Online Diff Checker',
+    intro:
+      'Check the difference between two texts or code snippets in seconds. Paste the original and the modified version to get a clear, color-coded diff with both split and unified views.',
+    sections: [
+      {
+        h2: 'Two ways to read a diff',
+        html: '<p>Use the <strong>Split</strong> view to see the old and new versions side by side, or the <strong>Unified</strong> view to read the changes inline the way a code review or <code>git diff</code> presents them. Switch anytime without re-pasting.</p>',
+      },
+      {
+        h2: 'Made for reviewing changes',
+        html: '<p>Whether you are checking an edit to a config file, a contract clause or a block of code, the diff checker makes the exact change unmistakable so nothing slips through review.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'What is the difference between split and unified view?',
+        a: 'Split view shows the two versions side by side in separate columns; unified view lists the changes inline with + and − markers, like a git diff.',
+      },
+      {
+        q: 'Can I use it to compare code?',
+        a: 'Yes. It compares any plain text line by line, including source code, and highlights the changed lines and words.',
+      },
+    ],
+  },
+  {
+    slug: 'compare-two-files',
+    group: 'diff',
+    title: 'Compare Two Files Online — Highlight Text Differences',
+    description:
+      'Compare two files online by pasting their contents. See added, removed and modified lines highlighted side by side. Free, private, no upload required.',
+    h1: 'Compare Two Files',
+    intro:
+      'Paste the contents of two files to compare them line by line. Differences are highlighted so you can quickly see what was added, deleted or changed between the two versions.',
+    sections: [
+      {
+        h2: 'No upload, just paste',
+        html: '<p>You do not need to upload anything or install a desktop diff app. Copy the text of each file into a panel and the comparison appears instantly, right in your browser.</p>',
+      },
+      {
+        h2: 'Ignore noise, focus on real changes',
+        html: '<p>Toggle <strong>Ignore whitespace</strong> and <strong>Ignore case</strong> to filter out formatting-only differences, so you see the changes that actually matter rather than reindented lines.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'Do I upload the files?',
+        a: 'No. You paste the contents of each file, and the comparison runs locally in your browser — nothing is uploaded.',
+      },
+      {
+        q: 'Can I ignore whitespace-only differences?',
+        a: 'Yes. Turn on Ignore whitespace to skip differences that are only about spacing or indentation.',
+      },
+    ],
+  },
+  {
+    slug: 'compare-text-online',
+    group: 'diff',
+    title: 'Compare Text Online — Free Side-by-Side Text Comparison',
+    description:
+      'Compare text online free with a side-by-side view. Paste two versions and highlight every difference, including changed words. No sign-up, in your browser.',
+    h1: 'Compare Text Online',
+    intro:
+      'A fast, free way to compare text online. Paste two versions side by side and see every addition, deletion and edit highlighted, with the changed words marked inside each modified line.',
+    sections: [
+      {
+        h2: 'Side-by-side clarity',
+        html: '<p>The side-by-side layout keeps the original and the revision aligned, so you can track exactly how the text evolved without scrolling back and forth or losing your place.</p>',
+      },
+      {
+        h2: 'Free and private',
+        html: '<p>There is no account and no upload. Your text is compared in the browser, and it only leaves your device if you choose to copy a shareable link.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is it really free?',
+        a: 'Yes. Comparing text is completely free, with no sign-up and no limits, and it runs entirely in your browser.',
+      },
+      {
+        q: 'Does it highlight changed words within a line?',
+        a: 'Yes. Modified lines show the exact words that were added or removed, not just that the line changed.',
+      },
+    ],
+  },
+  {
+    slug: 'json-diff',
+    group: 'diff',
+    title: 'JSON Diff — Compare Two JSON Files or Objects Online',
+    description:
+      'Compare two JSON snippets online. Paste both versions to see added, removed and changed lines highlighted. Format your JSON first for the clearest diff. In-browser.',
+    h1: 'JSON Diff',
+    intro:
+      'Compare two JSON documents side by side and see exactly which fields and values changed. For the clearest results, beautify each version first so the diff aligns key by key.',
+    sections: [
+      {
+        h2: 'See what changed between two JSON versions',
+        html: '<p>API responses and config files change subtly — a flipped boolean, a renamed key, an added array item. Pasting both versions here highlights those changes line by line so you can pinpoint them without reading every field.</p>',
+      },
+      {
+        h2: 'Tip: beautify before you diff',
+        html: '<p>Minified JSON diffs poorly because everything sits on one line. Run each side through the <a href="/json-beautifier">JSON beautifier</a> first so every key is on its own line, then paste the formatted versions here for a clean, readable diff.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'How do I compare two JSON objects?',
+        a: 'Paste each JSON version into a panel. For the clearest diff, beautify both first so each key sits on its own line and changes align neatly.',
+      },
+      {
+        q: 'Does it understand JSON structure?',
+        a: 'It compares the text line by line rather than parsing the object tree, so formatting each side first gives the most accurate, readable result.',
+      },
+    ],
+  },
 ];
 
 /** 同组（同工具）的其它落地页，用于页内互链（排除自己）。 */
@@ -617,4 +921,6 @@ export const GROUP_HOME: Record<ToolGroup, { href: string; label: string }> = {
   prompt: { href: '/prompt', label: 'AI Prompt Formatter' },
   markdown: { href: '/markdown', label: 'Markdown Formatter' },
   html: { href: '/html', label: 'HTML Viewer & Formatter' },
+  json: { href: '/json', label: 'JSON Formatter & Validator' },
+  diff: { href: '/diff', label: 'Text Diff Checker' },
 };

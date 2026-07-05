@@ -41,3 +41,16 @@
 .md-preview th, .md-preview td { border: 1px solid #e2e8f0; padding: 0.4rem 0.6rem; }
 .md-preview img { max-width: 100%; height: auto; border-radius: 0.4rem; }
 .md-preview hr { border: none; border-top: 1px solid #e2e8f0; margin: 1.2rem 0; }
+
+/* Diff 工具：替换行内被改动单词的高亮 */
+.diff-word-del {
+  background: #fecaca;
+  color: #991b1b;
+  border-radius: 0.2rem;
+  text-decoration: line-through;
+}
+.diff-word-add {
+  background: #bbf7d0;
+  color: #166534;
+  border-radius: 0.2rem;
+}

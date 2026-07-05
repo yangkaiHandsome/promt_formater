@@ -9,7 +9,7 @@ const tools = Object.values(TOOLS);
 
 // 首页直链所有长尾落地页（按 group 归类），把最高权重页的内链传给它们、
 // 同时方便用户发现更多具体用法。数据驱动，新增落地页会自动出现在这里。
-const groupOrder: ToolGroup[] = ['prompt', 'markdown', 'html'];
+const groupOrder: ToolGroup[] = ['prompt', 'markdown', 'html', 'json', 'diff'];
 const byGroup = groupOrder.map((g) => ({
   group: g,
   home: GROUP_HOME[g],
@@ -33,7 +33,7 @@ const byGroup = groupOrder.map((g) => ({
       browser — nothing is uploaded.
     </p>
 
-    <div class="mt-12 grid gap-6 sm:grid-cols-3">
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {
         tools.map((t) => (
           <a
@@ -62,7 +62,7 @@ const byGroup = groupOrder.map((g) => ({
       Jump straight to the exact tool you need — every one runs in your browser, free and
       without sign-up.
     </p>
-    <div class="mt-8 grid gap-8 sm:grid-cols-3">
+    <div class="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
       {
         byGroup.map((col) => (
           <div>
