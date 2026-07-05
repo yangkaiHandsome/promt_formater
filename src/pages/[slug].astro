@@ -1,0 +1,85 @@
+---
+// ★ 数据驱动长尾落地页的批量出口。
+// 从 src/data/landings.ts 读取每一项，产出一个静态页（slug 即 URL）。
+// 加页只需改数据文件，无需改这里。sitemap 会自动收录。
+import ToolPage from '../layouts/ToolPage.astro';
+import PromptTool from '../components/PromptTool.tsx';
+import MarkdownTool from '../components/MarkdownTool.tsx';
+import HtmlTool from '../components/HtmlTool.tsx';
+import { LANDINGS, relatedLandings, GROUP_HOME, type Landing } from '../data/landings';
+
+export function getStaticPaths() {
+  return LANDINGS.map((l) => ({ params: { slug: l.slug }, props: { landing: l } }));
+}
+
+interface Props {
+  landing: Landing;
+}
+const { landing } = Astro.props;
+const related = relatedLandings(landing.slug, landing.group);
+const home = GROUP_HOME[landing.group];
+---
+
+<ToolPage
+  title={landing.title}
+  description={landing.description}
+  h1={landing.h1}
+  intro={landing.intro}
+  path={`/${landing.slug}`}
+  faq={landing.faq}
+  parent={{ name: home.label, href: home.href }}
+>
+  {landing.group === 'prompt' && <PromptTool client:only="react" />}
+  {landing.group === 'markdown' && <MarkdownTool client:only="react" />}
+  {landing.group === 'html' && <HtmlTool client:only="react" />}
+
+  <Fragment slot="content">
+    {
+      landing.sections.map((s) => (
+        <>
+          <h2 class="mt-8 text-xl font-bold text-slate-900">{s.h2}</h2>
+          <div class="mt-2" set:html={s.html} />
+        </>
+      ))
+    }
+
+    <h2 class="mt-8 text-xl font-bold text-slate-900">Frequently asked questions</h2>
+    {
+      landing.faq.map((f) => (
+        <>
+          <h3 class="mt-4 font-semibold text-slate-800">{f.q}</h3>
+          <p class="mt-1">{f.a}</p>
+        </>
+      ))
+    }
+
+    <!-- 页内互链：同组其它落地页 + 回主工具页，避免孤岛、在主题簇内传权重 -->
+    <section class="mt-10 not-prose">
+      <h2 class="text-xl font-bold text-slate-900">Related tools</h2>
+      <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+        <li>
+          <a
+            href={home.href}
+            class="block rounded-lg border border-slate-200 p-3 transition hover:border-brand-400 hover:bg-slate-50"
+          >
+            <span class="font-semibold text-brand-600">{home.label}</span>
+            <span class="mt-0.5 block text-sm text-slate-600">The main tool, with all options.</span>
+          </a>
+        </li>
+        {
+          related.map((r) => (
+            <li>
+              <a
+                href={`/${r.slug}`}
+                class="block rounded-lg border border-slate-200 p-3 transition hover:border-brand-400 hover:bg-slate-50"
+              >
+                <span class="font-semibold text-brand-600">{r.h1}</span>
+                <span class="mt-0.5 block text-sm text-slate-600">{r.intro.slice(0, 80)}…</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </Fragment>
+</ToolPage>

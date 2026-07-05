@@ -1,0 +1,63 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config';
+---
+
+<PageLayout
+  title={`About ${SITE.name}`}
+  description={`${SITE.name} is a free collection of privacy-first online formatters for AI prompts, Markdown and HTML. Everything runs in your browser — nothing is uploaded.`}
+  h1={`About ${SITE.name}`}
+  path="/about"
+>
+  <p>
+    <strong>{SITE.name}</strong> is a small collection of free, privacy-first
+    formatting tools for developers and anyone who works with text. We built it
+    because copying a prompt, a chunk of Markdown or some messy HTML out of your
+    logs and making it readable shouldn't require signing up for anything.
+  </p>
+
+  <h2>What you can do here</h2>
+  <ul>
+    <li>
+      <a href="/prompt">AI Prompt Formatter</a> — turn an escaped, single-line
+      LLM prompt from your logs into a clean, color-coded conversation with
+      system / user / assistant roles split apart and inline JSON pretty-printed.
+    </li>
+    <li>
+      <a href="/markdown">Markdown Formatter</a> — paste Markdown and get a live,
+      clean HTML preview you can copy.
+    </li>
+    <li>
+      <a href="/html">HTML Viewer &amp; Formatter</a> — render HTML safely in a
+      sandbox or beautify messy markup instantly.
+    </li>
+  </ul>
+
+  <h2>Our principles</h2>
+  <ul>
+    <li>
+      <strong>Private by design.</strong> Every tool runs entirely in your
+      browser. Your text is never sent to or stored on a server.
+    </li>
+    <li>
+      <strong>Free and no sign-up.</strong> No account, no paywall, no install.
+    </li>
+    <li>
+      <strong>Fast and focused.</strong> Each tool does one thing well and loads
+      instantly.
+    </li>
+  </ul>
+
+  <h2>How we keep it free</h2>
+  <p>
+    {SITE.name} is supported by unobtrusive advertising. This lets us keep every
+    tool free for everyone while covering hosting costs. Read our
+    <a href="/privacy">Privacy Policy</a> to learn how ads and analytics work.
+  </p>
+
+  <h2>Get in touch</h2>
+  <p>
+    Have feedback or a tool you'd like to see? Visit our
+    <a href="/contact">Contact page</a> — we read every message.
+  </p>
+</PageLayout>

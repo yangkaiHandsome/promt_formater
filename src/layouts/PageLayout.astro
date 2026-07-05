@@ -1,0 +1,26 @@
+---
+// 非工具的内容页壳（About / Privacy / Contact 等）。
+// 单栏 prose 排版，供 AdSense 审核所需的信任页与静态说明使用。
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  h1: string;
+  updated?: string;
+  path?: string;
+}
+const { title, description, h1, updated, path } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} path={path}>
+  <div class="mx-auto max-w-3xl px-4 py-12">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-slate-900">{h1}</h1>
+      {updated && <p class="mt-2 text-sm text-slate-500">Last updated: {updated}</p>}
+    </header>
+    <article class="prose-slate max-w-none text-slate-700 [&_a]:text-brand-600 [&_a]:underline [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-slate-900 [&_p]:mt-3 [&_ul]:mt-3 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-6">
+      <slot />
+    </article>
+  </div>
+</BaseLayout>

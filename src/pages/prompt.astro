@@ -10,6 +10,16 @@ import PromptToolLinks from '../components/PromptToolLinks.astro';
   h1="Make Your Logged LLM Prompts Readable"
   intro="You log a prompt to debug it — and the console shows one giant escaped line with the roles mashed together. Paste that mess on the left and get a clean, color-coded conversation on the right. For AI engineers."
   path="/prompt"
+  faq={[
+    {
+      q: 'Does it work with ChatGPT / OpenAI prompts?',
+      a: 'Yes. It recognizes common role labels used by ChatGPT, Claude and other LLM APIs.',
+    },
+    {
+      q: 'Is anything sent to a server?',
+      a: 'No — formatting runs entirely in your browser, so prompts stay private.',
+    },
+  ]}
 >
   <PromptTool client:only="react" />
 

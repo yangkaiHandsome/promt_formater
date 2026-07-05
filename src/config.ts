@@ -4,6 +4,16 @@ export const SITE = {
   name: 'FormatTools',
   tagline: 'Free online formatters — Markdown, HTML & AI Prompts',
   domain: 'https://promptformatter.top',
+  // 面向用户的联系邮箱（About/Contact 页与 AdSense 审核要求）。
+  // 上线前换成真实可收信地址（域名邮箱或转发到你的 Gmail）。
+  contactEmail: 'support@promptformatter.top',
+  // 全站默认社交分享卡（og:image / twitter:image）。相对路径，BaseLayout 转成绝对 URL。
+  // 专门的 1200×630 品牌卡（public/og-card.png，由 sharp 从品牌 SVG 生成）。
+  ogImage: '/og-card.png',
+  // Google Search Console 的 HTML 标签验证码（<meta name="google-site-verification">
+  // 的 content 值，只填码本身，不含标签）。留空则不渲染验证标签。
+  // 拿到站点后：Search Console → 添加资源 → HTML 标记 → 复制 content 填这里。
+  googleSiteVerification: '',
   // AdSense 审核通过、拿到 publisher id 后填这里并把 enabled 改成 true
   adsenseClient: 'ca-pub-0000000000000000',
   adsenseEnabled: false,

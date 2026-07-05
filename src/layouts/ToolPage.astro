@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import AdSlot from '../components/AdSlot.astro';
+import { SITE } from '../config';
 
 interface Props {
   title: string;
@@ -8,13 +9,95 @@ interface Props {
   h1: string;
   intro: string;
   path?: string;
+  /** 可选 FAQ：填了就额外输出 FAQPage 结构化数据，有机会拿富摘要 */
+  faq?: { q: string; a: string }[];
+  /** 可选父级（如所属主工具页）：填了则面包屑为 Home → parent → 当前页 */
+  parent?: { name: string; href: string };
 }
-const { title, description, h1, intro, path } = Astro.props;
+const { title, description, h1, intro, path, faq, parent } = Astro.props;
+const canonical = new URL(path ?? Astro.url.pathname, SITE.domain).toString();
+
+// BreadcrumbList：让 Google 在搜索结果里展示面包屑路径，提升可读性与 CTR
+const crumbs = [
+  { name: 'Home', url: new URL('/', SITE.domain).toString() },
+  ...(parent ? [{ name: parent.name, url: new URL(parent.href, SITE.domain).toString() }] : []),
+  { name: h1, url: canonical },
+];
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.name,
+    item: c.url,
+  })),
+};
+
+// SoftwareApplication：告诉 Google 这是一个免费在线工具
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: h1,
+  description,
+  url: canonical,
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Any (web browser)',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.domain },
+};
+
+// FAQPage：仅当页面传入 faq 时输出
+const faqSchema =
+  faq && faq.length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: { '@type': 'Answer', text: item.a },
+        })),
+      }
+    : null;
 ---
 
 <BaseLayout title={title} description={description} path={path}>
+  <script
+    type="application/ld+json"
+    slot="head"
+    is:inline
+    set:html={JSON.stringify(appSchema)}
+  />
+  <script
+    type="application/ld+json"
+    slot="head"
+    is:inline
+    set:html={JSON.stringify(breadcrumbSchema)}
+  />
+  {
+    faqSchema && (
+      <script
+        type="application/ld+json"
+        slot="head"
+        is:inline
+        set:html={JSON.stringify(faqSchema)}
+      />
+    )
+  }
   <div class="mx-auto max-w-7xl px-4 py-8">
     <header class="mb-6">
+      {
+        parent && (
+          <nav aria-label="Breadcrumb" class="mb-3 text-sm text-slate-500">
+            <a class="hover:text-brand-600" href="/">Home</a>
+            <span class="mx-1.5">/</span>
+            <a class="hover:text-brand-600" href={parent.href}>{parent.name}</a>
+            <span class="mx-1.5">/</span>
+            <span class="text-slate-700">{h1}</span>
+          </nav>
+        )
+      }
       <h1 class="text-2xl font-bold text-slate-900 sm:text-3xl">{h1}</h1>
       <p class="mt-2 max-w-3xl text-slate-600">{intro}</p>
     </header>

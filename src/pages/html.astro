@@ -1,6 +1,7 @@
 ---
 import ToolPage from '../layouts/ToolPage.astro';
 import HtmlTool from '../components/HtmlTool.tsx';
+import LandingLinks from '../components/LandingLinks.astro';
 ---
 
 <ToolPage
@@ -9,6 +10,16 @@ import HtmlTool from '../components/HtmlTool.tsx';
   h1="HTML Viewer & Formatter"
   intro="Paste HTML on the left to see it rendered safely on the right, or switch to Format to beautify messy markup. Rendering happens in a sandboxed iframe — scripts never run."
   path="/html"
+  faq={[
+    {
+      q: 'Will JavaScript in my HTML run?',
+      a: 'No. Scripts are removed and the sandbox blocks execution, by design.',
+    },
+    {
+      q: 'Can I beautify minified HTML?',
+      a: 'Yes — switch to the Format tab to re-indent and wrap minified or messy markup.',
+    },
+  ]}
 >
   <HtmlTool client:only="react" />
 
@@ -34,5 +45,7 @@ import HtmlTool from '../components/HtmlTool.tsx';
     <p class="mt-1">
       Yes — switch to the <strong>Format</strong> tab to re-indent and wrap minified or messy markup.
     </p>
+
+    <LandingLinks group="html" heading="More HTML tools" />
   </Fragment>
 </ToolPage>

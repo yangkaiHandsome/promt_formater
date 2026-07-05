@@ -67,14 +67,15 @@ public/
 
 ## 上线前必改的占位符
 
-- `src/config.ts`：`SITE.domain`（真实域名）、`SITE.adsenseClient`、`SITE.adsenseEnabled`
+- `src/config.ts`：`SITE.domain`（真实域名）、`SITE.adsenseClient`、`SITE.adsenseEnabled`、`SITE.contactEmail`（真实可收信邮箱，About/Contact/Privacy 都引用它）
 - `astro.config.mjs`：`site`（真实域名，影响 sitemap/canonical/OG 绝对 URL）
 - `public/robots.txt`：`Sitemap:` 域名
 - AdSense 审核要求站点有真实内容 → 落地页正文（FAQ/说明）不能太空。**上线前建议补：隐私政策页、About 页**（AdSense 常规要求）。
 
 ## 常见维护任务怎么做
 
-- **加一个 SEO 落地页**：在 `src/pages/` 新建 `xxx.astro`，用 `ToolPage` 布局，复用现有某个工具组件（`client:only="react"`），写针对该关键词的 `title/description/h1/intro` 和 `content` slot 正文。sitemap 会自动收录。
+- **加一个 SEO 长尾落地页（推荐做法）**：直接在 `src/data/landings.ts` 的 `LANDINGS` 数组加一项即可——`src/pages/[slug].astro` 会用 `getStaticPaths` 批量出页，自动带 `SoftwareApplication`+`FAQPage` 结构化数据、簇内互链和回主工具页的链接。铁律：`group` 必须映射到「真能干这活」的工具组件；`h1/intro/sections/faq` 每页独一无二（禁止模板换词，否则被判门页）；`faq.answer` 要与页面可见正文一致；`slug` 不能和 `src/pages/` 下已有 .astro 文件重名。主工具页用 `components/LandingLinks.astro` 按 group 把整簇链进来（已接入 /markdown、/html）。
+- **加一个「一次性/结构特殊」的落地页**：仍可在 `src/pages/` 新建 `xxx.astro`，用 `ToolPage` 布局，复用某个工具组件（`client:only="react"`），写 `title/description/h1/intro/faq` 和 `content` slot 正文。sitemap 会自动收录。
 - **加一个新工具**：在 `config.ts` 的 `TOOLS` 加一项（决定首页卡片+导航），写 `components/XxxTool.tsx`（复用 `ToolShell`），建 `pages/xxx.astro`，`ToolIcon.astro` 加图标，`BaseLayout` 导航加链接。
 - **改工具展示顺序**：调 `config.ts` `TOOLS` 键顺序，并同步 `BaseLayout` 页头/页脚导航。
 
@@ -85,4 +86,7 @@ public/
 ## 维护记录
 
 - 三个工具 MVP 已完成并通过构建验证。Prompt 已置顶、广告位已隐藏、Prompt 输出已做角色分块+JSON 语法高亮。
+- 已补 AdSense 审核所需信任页：`about.astro` / `privacy.astro` / `contact.astro`（用新增的 `layouts/PageLayout.astro` 单栏壳，footer 已加链接）。三页文案引用 `SITE.contactEmail`。
+- 已加结构化数据：`ToolPage` 自动输出 `SoftwareApplication` JSON-LD；页面传 `faq={[{q,a}...]}` prop 时额外输出 `FAQPage`（三个主工具页已接入，answer 文案须与页面可见 FAQ 一致，Google 要求）。JSON-LD 经 `BaseLayout` 的 `slot="head"` 注入 `<head>`。
+- 已上线数据驱动长尾页引擎：`src/data/landings.ts`（配置）+ `src/pages/[slug].astro`（批量出口）+ `components/LandingLinks.astro`（主页面链入整簇）。首批 13 页：markdown 意图簇 5（markdown-preview / markdown-editor-online / md-to-html / github-markdown-preview / markdown-viewer）、html 意图簇 5（html-formatter / html-beautifier / html-previewer / unminify-html / html-prettifier）、prompt 意图簇 3（chatgpt- / system- / llm-prompt-formatter）。构建产出从 16 → 29 页。
 - 未做实时浏览器点击测试（Claude Chrome 扩展未连接时）——改动交互后建议 `npm run dev` 人工过一遍，重点验 HTML 工具粘贴 `<script>`/`onerror` 不执行。

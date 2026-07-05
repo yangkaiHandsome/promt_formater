@@ -1,6 +1,7 @@
 ---
 import ToolPage from '../layouts/ToolPage.astro';
 import MarkdownTool from '../components/MarkdownTool.tsx';
+import LandingLinks from '../components/LandingLinks.astro';
 ---
 
 <ToolPage
@@ -9,6 +10,20 @@ import MarkdownTool from '../components/MarkdownTool.tsx';
   h1="Markdown Formatter & Live Preview"
   intro="Paste Markdown on the left and see a formatted preview on the right in real time. Copy the generated HTML or download your .md file — everything stays in your browser."
   path="/markdown"
+  faq={[
+    {
+      q: 'Is my content uploaded anywhere?',
+      a: 'No. All formatting happens locally in your browser — nothing is sent to a server.',
+    },
+    {
+      q: 'Does it support tables and code blocks?',
+      a: 'Yes. Tables, fenced code blocks, blockquotes, lists, links and images are all supported.',
+    },
+    {
+      q: 'Can I convert Markdown to HTML?',
+      a: 'Yes — the preview is real HTML. Use the Copy button to export it, or try our dedicated Markdown to HTML converter.',
+    },
+  ]}
 >
   <MarkdownTool client:only="react" />
 
@@ -41,5 +56,7 @@ import MarkdownTool from '../components/MarkdownTool.tsx';
       Yes — the preview is real HTML. Use the Copy button to export it, or try our dedicated
       <a class="text-brand-600 underline" href="/markdown-to-html">Markdown to HTML converter</a>.
     </p>
+
+    <LandingLinks group="markdown" heading="More Markdown tools" />
   </Fragment>
 </ToolPage>

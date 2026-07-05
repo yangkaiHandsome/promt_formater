@@ -13,6 +13,31 @@ interface Props {
 const { title, description, path } = Astro.props;
 const canonical = new URL(path ?? Astro.url.pathname, SITE.domain).toString();
 const fullTitle = title.includes(SITE.name) ? title : `${title} · ${SITE.name}`;
+const ogImage = new URL(SITE.ogImage, SITE.domain).toString();
+
+// 全站结构化数据：让 Google 理解品牌实体（有利于 sitelinks / 知识面板）。
+// 页面级的 SoftwareApplication / FAQPage 由各页通过 slot="head" 另外注入，互不冲突。
+const siteJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE.domain}/#organization`,
+      name: SITE.name,
+      url: `${SITE.domain}/`,
+      logo: new URL('/logo.png', SITE.domain).toString(),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE.domain}/#website`,
+      name: SITE.name,
+      url: `${SITE.domain}/`,
+      description: SITE.tagline,
+      publisher: { '@id': `${SITE.domain}/#organization` },
+      inLanguage: 'en',
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -20,23 +45,50 @@ const fullTitle = title.includes(SITE.name) ? title : `${title} · ${SITE.name}`
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#4f46e5" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/logo.png" />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href={canonical} />
+
+    {
+      SITE.googleSiteVerification && (
+        <meta name="google-site-verification" content={SITE.googleSiteVerification} />
+      )
+    }
 
     <!-- Open Graph / Twitter：分享和搜索预览 -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name} — ${SITE.tagline}`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- 全站品牌结构化数据 -->
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(siteJsonLd)}
+    />
 
     <!-- AdSense 脚本位：审核通过并开启后自动加载 -->
+    {
+      SITE.adsenseEnabled && (
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+      )
+    }
     {
       SITE.adsenseEnabled && (
         <script
@@ -47,6 +99,9 @@ const fullTitle = title.includes(SITE.name) ? title : `${title} · ${SITE.name}`
         />
       )
     }
+
+    <!-- 页面级 <head> 注入位：结构化数据(JSON-LD) 等 -->
+    <slot name="head" />
   </head>
   <body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
     <header class="border-b border-slate-200 bg-white">
@@ -71,10 +126,13 @@ const fullTitle = title.includes(SITE.name) ? title : `${title} · ${SITE.name}`
         class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm text-slate-500 sm:flex-row"
       >
         <p>© {SITE.name} — {SITE.tagline}</p>
-        <nav class="flex gap-4">
+        <nav class="flex flex-wrap justify-center gap-x-4 gap-y-2">
           <a class="hover:text-slate-800" href="/prompt">Prompt</a>
           <a class="hover:text-slate-800" href="/markdown">Markdown</a>
           <a class="hover:text-slate-800" href="/html">HTML</a>
+          <a class="hover:text-slate-800" href="/about">About</a>
+          <a class="hover:text-slate-800" href="/privacy">Privacy</a>
+          <a class="hover:text-slate-800" href="/contact">Contact</a>
         </nav>
       </div>
     </footer>

@@ -1,0 +1,33 @@
+---
+// 把某个 group 的所有长尾落地页列出来做内链，供主工具页引用，
+// 让搜索引擎能从已收录的主页面顺链抓到整个变体簇（避免孤岛）。
+import { LANDINGS, type ToolGroup } from '../data/landings';
+
+interface Props {
+  group: ToolGroup;
+  heading?: string;
+}
+const { group, heading = 'More tools' } = Astro.props;
+const links = LANDINGS.filter((l) => l.group === group);
+---
+
+{
+  links.length > 0 && (
+    <section class="mt-10 not-prose">
+      <h2 class="text-xl font-bold text-slate-900">{heading}</h2>
+      <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+        {links.map((l) => (
+          <li>
+            <a
+              href={`/${l.slug}`}
+              class="block rounded-lg border border-slate-200 p-3 transition hover:border-brand-400 hover:bg-slate-50"
+            >
+              <span class="font-semibold text-brand-600">{l.h1}</span>
+              <span class="mt-0.5 block text-sm text-slate-600">{l.intro.slice(0, 80)}…</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

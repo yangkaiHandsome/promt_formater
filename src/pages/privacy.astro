@@ -1,0 +1,115 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config';
+---
+
+<PageLayout
+  title={`Privacy Policy — ${SITE.name}`}
+  description={`How ${SITE.name} handles your data: all formatting runs in your browser, nothing is uploaded. Details on cookies, advertising and analytics.`}
+  h1="Privacy Policy"
+  updated="July 5, 2026"
+  path="/privacy"
+>
+  <p>
+    This Privacy Policy explains how <strong>{SITE.name}</strong> ("we", "us")
+    handles information when you use our website and tools. Your privacy matters
+    to us, and our tools are designed to keep your data on your own device.
+  </p>
+
+  <h2>Your content stays in your browser</h2>
+  <p>
+    All of our formatters — the AI Prompt Formatter, Markdown Formatter, and HTML
+    Viewer — run entirely inside your web browser using client-side JavaScript.
+    Any text you paste or type is processed locally on your device. We do
+    <strong>not</strong> send, upload, store, or log the content you format.
+  </p>
+
+  <h2>Information we collect</h2>
+  <p>
+    We do not require you to create an account or provide personal information to
+    use our tools. Like most websites, our hosting provider and third-party
+    services may automatically collect standard technical information such as:
+  </p>
+  <ul>
+    <li>Your browser type and version, and device/operating system.</li>
+    <li>Anonymized usage data such as pages visited and time on site.</li>
+    <li>Your approximate location, derived from your IP address.</li>
+  </ul>
+  <p>
+    This information is aggregated and used to understand traffic and improve the
+    site. It does not include the content you format.
+  </p>
+
+  <h2>Cookies</h2>
+  <p>
+    We and our third-party partners may use cookies and similar technologies to
+    operate the site, remember preferences, measure traffic, and serve
+    advertising. You can control or delete cookies through your browser settings;
+    disabling them will not affect the core functionality of our tools.
+  </p>
+
+  <h2>Advertising</h2>
+  <p>
+    We may display advertising provided by third-party ad networks, including
+    Google AdSense, to keep our tools free.
+  </p>
+  <ul>
+    <li>
+      Third-party vendors, including Google, use cookies to serve ads based on a
+      user's prior visits to this and other websites.
+    </li>
+    <li>
+      Google's use of advertising cookies enables it and its partners to serve
+      ads to you based on your visits to this site and/or other sites on the
+      internet.
+    </li>
+    <li>
+      You may opt out of personalized advertising by visiting
+      <a href="https://www.google.com/settings/ads" rel="nofollow noopener" target="_blank">Google Ads Settings</a>.
+      For more options, visit
+      <a href="https://www.aboutads.info/choices/" rel="nofollow noopener" target="_blank">aboutads.info</a>.
+    </li>
+  </ul>
+
+  <h2>Analytics</h2>
+  <p>
+    We may use privacy-respecting analytics tools to measure aggregate traffic.
+    These tools do not have access to the content you format and are used only to
+    understand how the site is used in aggregate.
+  </p>
+
+  <h2>Third-party links</h2>
+  <p>
+    Our site may contain links to external websites. We are not responsible for
+    the privacy practices or content of those sites. We encourage you to review
+    their privacy policies.
+  </p>
+
+  <h2>Children's privacy</h2>
+  <p>
+    Our site is not directed to children under the age of 13, and we do not
+    knowingly collect personal information from them.
+  </p>
+
+  <h2>Your rights</h2>
+  <p>
+    Depending on where you live (for example, under the GDPR or CCPA), you may
+    have rights to access, correct, or delete personal information held about
+    you. Because our tools do not collect your content, most requests relate only
+    to standard analytics and advertising data handled by our third-party
+    providers. Contact us if you have any questions.
+  </p>
+
+  <h2>Changes to this policy</h2>
+  <p>
+    We may update this Privacy Policy from time to time. Any changes will be
+    posted on this page with an updated revision date.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    If you have questions about this Privacy Policy, email us at
+    <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> or use our
+    <a href="/contact">Contact page</a>.
+  </p>
+</PageLayout>
