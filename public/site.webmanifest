@@ -1,0 +1,17 @@
+{
+  "name": "FormatTools — Markdown, HTML & AI Prompt Formatters",
+  "short_name": "FormatTools",
+  "description": "Free online tools to format Markdown, render HTML safely, and clean up AI prompts. Runs entirely in your browser.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

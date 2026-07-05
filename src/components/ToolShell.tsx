@@ -81,7 +81,25 @@ export default function ToolShell({
           </span>
           <div className="flex items-center gap-2">{toolbar}</div>
         </div>
-        <div className="min-h-[32rem] flex-1 overflow-auto lg:min-h-[40rem]">{children}</div>
+        <div className="min-h-[32rem] flex-1 overflow-auto lg:min-h-[40rem]">
+          {!input && sample ? (
+            <div className="flex h-full min-h-[32rem] flex-col items-center justify-center px-6 text-center lg:min-h-[40rem]">
+              <p className="text-sm font-medium text-slate-500">Nothing to show yet</p>
+              <p className="mt-1 max-w-xs text-sm text-slate-400">
+                Paste your text on the left, or load an example to see how it works.
+              </p>
+              <button
+                type="button"
+                onClick={() => onInput(sample)}
+                className="mt-4 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
+              >
+                Load a sample
+              </button>
+            </div>
+          ) : (
+            children
+          )}
+        </div>
       </section>
     </div>
   );
