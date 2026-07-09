@@ -7,3 +7,9 @@ dist/
 .env.production
 reddit/
 test/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
