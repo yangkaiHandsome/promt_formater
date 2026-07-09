@@ -1,6 +1,7 @@
 ---
 import { SITE } from '../config';
 import ToolIcon from '../components/ToolIcon.astro';
+import { canonicalUrl } from '../lib/seo';
 import '../styles/global.css';
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 }
 
 const { title, description, path } = Astro.props;
-const canonical = new URL(path ?? Astro.url.pathname, SITE.domain).toString();
+const canonical = canonicalUrl(path ?? Astro.url.pathname);
 const fullTitle = title.includes(SITE.name) ? title : `${title} · ${SITE.name}`;
 const ogImage = new URL(SITE.ogImage, SITE.domain).toString();
 
@@ -135,6 +136,7 @@ const siteJsonLd = {
           <a class="hover:text-slate-800" href="/html">HTML</a>
           <a class="hover:text-slate-800" href="/json">JSON</a>
           <a class="hover:text-slate-800" href="/diff">Diff</a>
+          <a class="hover:text-slate-800" href="/guides">Guides</a>
           <a class="hover:text-slate-800" href="/about">About</a>
           <a class="hover:text-slate-800" href="/privacy">Privacy</a>
           <a class="hover:text-slate-800" href="/contact">Contact</a>

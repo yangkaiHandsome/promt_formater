@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import AdSlot from '../components/AdSlot.astro';
 import { SITE } from '../config';
+import { canonicalUrl } from '../lib/seo';
 
 interface Props {
   title: string;
@@ -15,12 +16,12 @@ interface Props {
   parent?: { name: string; href: string };
 }
 const { title, description, h1, intro, path, faq, parent } = Astro.props;
-const canonical = new URL(path ?? Astro.url.pathname, SITE.domain).toString();
+const canonical = canonicalUrl(path ?? Astro.url.pathname);
 
 // BreadcrumbList：让 Google 在搜索结果里展示面包屑路径，提升可读性与 CTR
 const crumbs = [
-  { name: 'Home', url: new URL('/', SITE.domain).toString() },
-  ...(parent ? [{ name: parent.name, url: new URL(parent.href, SITE.domain).toString() }] : []),
+  { name: 'Home', url: canonicalUrl('/') },
+  ...(parent ? [{ name: parent.name, url: canonicalUrl(parent.href) }] : []),
   { name: h1, url: canonical },
 ];
 const breadcrumbSchema = {

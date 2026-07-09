@@ -1,6 +1,7 @@
 ---
 import ToolPage from '../layouts/ToolPage.astro';
 import PromptTool from '../components/PromptTool.tsx';
+import PromptToolLinks from '../components/PromptToolLinks.astro';
 ---
 
 <ToolPage
@@ -9,6 +10,16 @@ import PromptTool from '../components/PromptTool.tsx';
   h1="Format a Claude Prompt"
   intro="Inspecting an Anthropic Claude API call? Paste the request from your logs and get a clean, readable conversation — system prompt, user and assistant turns, and tool calls, each clearly separated."
   path="/format-claude-prompt"
+  faq={[
+    {
+      q: 'Is my prompt uploaded anywhere?',
+      a: 'No — formatting happens entirely in your browser, so Claude prompts stay private.',
+    },
+    {
+      q: 'Working with OpenAI too?',
+      a: 'Same tool, OpenAI format: format an OpenAI prompt.',
+    },
+  ]}
 >
   <PromptTool client:only="react" />
 
@@ -36,5 +47,7 @@ import PromptTool from '../components/PromptTool.tsx';
       Same tool, OpenAI format:
       <a class="text-brand-600 underline" href="/format-openai-prompt">format an OpenAI prompt</a>.
     </p>
+
+    <PromptToolLinks current="/format-claude-prompt" />
   </Fragment>
 </ToolPage>

@@ -605,6 +605,36 @@ export const LANDINGS: Landing[] = [
       },
     ],
   },
+  {
+    slug: 'ai-prompt-message-formatter',
+    group: 'prompt',
+    title: 'AI Prompt Message Formatter — Read Role-Based Prompts',
+    description:
+      'Format AI prompt message arrays online. Paste system, user, assistant and tool messages from logs to see each role separated and readable. Private, in-browser.',
+    h1: 'AI Prompt Message Formatter',
+    intro:
+      'Role-based prompt payloads are hard to audit when they are escaped into a log line. Paste the message array here to separate system, user, assistant and tool turns into readable blocks.',
+    sections: [
+      {
+        h2: 'Untangle role-based prompt payloads',
+        html: '<p>Modern AI apps often send prompts as arrays of messages rather than one plain string. In logs, that structure can become dense and escaped. This formatter restores line breaks, separates each role, and makes the actual conversation easier to inspect.</p>',
+      },
+      {
+        h2: 'Useful for debugging prompt behavior',
+        html: '<p>When a model ignores an instruction or uses the wrong context, the first question is what prompt it actually received. Formatting the message payload helps you spot missing system instructions, repeated user turns, malformed tool arguments and noisy context.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'What is an AI prompt message array?',
+        a: 'It is a structured prompt format where each turn has a role such as system, user, assistant or tool, instead of being sent as one unstructured text block.',
+      },
+      {
+        q: 'Can it format tool call arguments inside a prompt?',
+        a: 'Yes. The formatter pretty-prints inline JSON, which makes tool call arguments and structured examples easier to read.',
+      },
+    ],
+  },
 
   // ---------------- JSON 意图簇（复用 JsonTool：格式化 / 校验 / 压缩） ----------------
   {
@@ -757,6 +787,96 @@ export const LANDINGS: Landing[] = [
       },
     ],
   },
+  {
+    slug: 'json-parser-online',
+    group: 'json',
+    title: 'JSON Parser Online — Parse & Format JSON Safely',
+    description:
+      'Parse JSON online for free. Paste a JSON string or API response to validate it, format it with indentation and see exact syntax errors. Private, in-browser.',
+    h1: 'JSON Parser Online',
+    intro:
+      'Paste a JSON payload and parse it instantly in your browser. Valid JSON becomes clean, indented output; invalid JSON shows the line, column and parser message so you know where it failed.',
+    sections: [
+      {
+        h2: 'Parse before you trust a payload',
+        html: '<p>JSON copied from an API response, config file or log can look right while hiding a small syntax problem. Parsing it first confirms the data is valid and turns the result into readable, highlighted JSON for review.</p>',
+      },
+      {
+        h2: 'Clear errors for broken JSON',
+        html: '<p>When parsing fails, the tool reports the browser parser error and points to the detected line and column. That makes it faster to find issues like a trailing comma, a missing quote, an extra brace or an unescaped newline.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'What does a JSON parser do?',
+        a: 'A JSON parser checks whether text is valid JSON and converts it into a structured value. This tool also formats valid JSON so it is easier to read.',
+      },
+      {
+        q: 'Will this parse JSON on a server?',
+        a: 'No. The JSON is parsed locally in your browser, so the payload is not uploaded or stored.',
+      },
+    ],
+  },
+  {
+    slug: 'json-syntax-checker',
+    group: 'json',
+    title: 'JSON Syntax Checker — Find JSON Errors Online',
+    description:
+      'Check JSON syntax online and find errors fast. Paste JSON to catch missing quotes, trailing commas, bad brackets and other parse issues with line and column details.',
+    h1: 'JSON Syntax Checker',
+    intro:
+      'Use this JSON syntax checker when a config file, API body or webhook payload will not parse. It flags invalid JSON with a focused error message and location, then formats the result once it is valid.',
+    sections: [
+      {
+        h2: 'Designed for quick syntax checks',
+        html: '<p>JSON is strict: keys need double quotes, commas cannot trail after the last item, and brackets must match exactly. A syntax checker catches those small mistakes before they break a request, deployment or import job.</p>',
+      },
+      {
+        h2: 'Validate, then clean up the result',
+        html: '<p>After the syntax is valid, switch indentation between 2 spaces, 4 spaces or tabs, or minify the same JSON for a compact payload. The validation and formatting happen in the same browser-only tool.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'Can it find the exact JSON syntax error?',
+        a: 'It reports the parser message and, when available, the line and column where the JSON parser detected the problem.',
+      },
+      {
+        q: 'What JSON mistakes does it catch?',
+        a: 'It catches standard JSON syntax errors such as trailing commas, single-quoted strings, unquoted keys, mismatched brackets and unescaped control characters.',
+      },
+    ],
+  },
+  {
+    slug: 'json-file-viewer',
+    group: 'json',
+    title: 'JSON File Viewer — Open & Format .json Files Online',
+    description:
+      'View JSON files online without installing an app. Upload or paste a .json file to validate, format, syntax-highlight and download clean JSON. Private, in-browser.',
+    h1: 'JSON File Viewer',
+    intro:
+      'Open a .json file in your browser and turn it into readable, syntax-highlighted output. Upload the file or paste its contents, then format, validate, copy or download the cleaned JSON.',
+    sections: [
+      {
+        h2: 'Read a JSON file without an editor',
+        html: '<p>Many systems export settings, backups and API examples as <code>.json</code> files. This viewer expands nested objects and arrays with indentation so you can inspect the data without installing a dedicated JSON editor.</p>',
+      },
+      {
+        h2: 'Local file handling',
+        html: '<p>The file is read by your browser and processed on the page. You can choose a spacing style, minify the content, or download the formatted result as a new <code>.json</code> file when you are done.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'Can I upload a .json file?',
+        a: 'Yes. Use the upload button to load a .json or text file into the viewer, then format or minify it.',
+      },
+      {
+        q: 'Is the uploaded JSON file sent anywhere?',
+        a: 'No. The file is read and processed locally in your browser; it is not uploaded to a server.',
+      },
+    ],
+  },
 
   // ---------------- Diff 意图簇（复用 DiffTool：两段文本对比） ----------------
   {
@@ -906,6 +1026,96 @@ export const LANDINGS: Landing[] = [
       {
         q: 'Does it understand JSON structure?',
         a: 'It compares the text line by line rather than parsing the object tree, so formatting each side first gives the most accurate, readable result.',
+      },
+    ],
+  },
+  {
+    slug: 'side-by-side-diff',
+    group: 'diff',
+    title: 'Side-by-Side Diff — Compare Two Texts Visually',
+    description:
+      'Compare two texts in a side-by-side diff view. Paste the original and changed version to highlight added, removed and edited lines with word-level changes.',
+    h1: 'Side-by-Side Diff',
+    intro:
+      'Paste an original version and a changed version to see them aligned side by side. Added, removed and modified lines are highlighted so you can review changes without losing your place.',
+    sections: [
+      {
+        h2: 'Keep both versions in view',
+        html: '<p>A side-by-side diff is ideal when context matters. The original stays on the left, the changed text stays on the right, and matching lines remain aligned so edits are easy to scan in order.</p>',
+      },
+      {
+        h2: 'Switch views when needed',
+        html: '<p>Use the split view for visual comparison, then switch to unified view if you want a compact review-style diff. Ignore whitespace or case when formatting noise is getting in the way.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'What is a side-by-side diff?',
+        a: 'A side-by-side diff places the original text and changed text in two aligned columns so additions, deletions and edits can be reviewed visually.',
+      },
+      {
+        q: 'Can I ignore whitespace in the side-by-side diff?',
+        a: 'Yes. Turn on Ignore whitespace to reduce spacing-only changes and focus on edits that change the text itself.',
+      },
+    ],
+  },
+  {
+    slug: 'code-diff-online',
+    group: 'diff',
+    title: 'Code Diff Online — Compare Code Snippets Free',
+    description:
+      'Compare code snippets online with a free diff tool. Paste two versions to highlight added, removed and changed lines, with split and unified views.',
+    h1: 'Code Diff Online',
+    intro:
+      'Compare two versions of a code snippet without opening Git or an IDE. Paste the old code and the new code to see changed lines and edited words highlighted clearly.',
+    sections: [
+      {
+        h2: 'Review small code changes fast',
+        html: '<p>For a quick snippet, config block or generated file, a full repository diff can be more setup than you need. This code diff tool compares plain text line by line, which works well for JavaScript, JSON, HTML, CSS, YAML and other code-like formats.</p>',
+      },
+      {
+        h2: 'Useful before committing or sharing',
+        html: '<p>Paste a before-and-after version to verify that only the intended lines changed. The unified view reads like a lightweight code review, while split view keeps both versions aligned for careful inspection.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'Does this code diff tool require a Git repository?',
+        a: 'No. It compares whatever code or plain text you paste into the two panels, so no repository or command line is required.',
+      },
+      {
+        q: 'Which programming languages can it compare?',
+        a: 'It compares plain text, so it works with any language or code-like file where line-by-line differences are useful.',
+      },
+    ],
+  },
+  {
+    slug: 'whitespace-diff-checker',
+    group: 'diff',
+    title: 'Whitespace Diff Checker — Ignore Spacing Differences',
+    description:
+      'Compare two texts while ignoring whitespace differences. Paste both versions to focus on meaningful edits instead of indentation, spacing or wrapping changes.',
+    h1: 'Whitespace Diff Checker',
+    intro:
+      'When formatting changes bury the real edit, turn on Ignore whitespace and compare again. The diff focuses on meaningful text changes instead of indentation, extra spaces or line-level spacing noise.',
+    sections: [
+      {
+        h2: 'Filter out formatting-only noise',
+        html: '<p>Reformatting a file can make every line look changed even when the content barely moved. Ignoring whitespace helps you review the substance of the edit without being distracted by indentation or spacing differences.</p>',
+      },
+      {
+        h2: 'Pair it with case-insensitive comparison',
+        html: '<p>If capitalization is also irrelevant for your review, enable Ignore case too. The comparison updates immediately, so you can decide whether a difference is meaningful for the text you are checking.</p>',
+      },
+    ],
+    faq: [
+      {
+        q: 'Can I compare text while ignoring whitespace?',
+        a: 'Yes. Enable Ignore whitespace to reduce differences caused only by spacing and indentation.',
+      },
+      {
+        q: 'Does ignoring whitespace change my original text?',
+        a: 'No. It only changes how differences are detected and displayed; the text you pasted remains unchanged.',
       },
     ],
   },

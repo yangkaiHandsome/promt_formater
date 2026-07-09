@@ -1,0 +1,97 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { SITE } from '../../config';
+---
+
+<PageLayout
+  title="How to Format OpenAI Prompt Logs for Debugging"
+  description="A practical guide to formatting OpenAI prompt logs: separate roles, unescape content, inspect tool calls, pretty-print JSON and keep sensitive data local."
+  h1="How to Format OpenAI Prompt Logs for Debugging"
+  path="/guides/format-openai-prompt-logs"
+>
+  <p>
+    OpenAI prompt logs are often hard to read because the useful conversation is buried inside escaped
+    JSON. System instructions, user messages, assistant output and tool payloads may all appear as one
+    long line. Formatting the log turns it back into something you can inspect without losing the
+    original meaning.
+  </p>
+
+  <p>
+    Start with the <a href="/prompt">AI Prompt Formatter</a>. It is the first tool to use when a log
+    contains LLM roles, escaped newlines or nested JSON, and it runs entirely in your browser.
+  </p>
+
+  <h2>Keep the raw log before editing</h2>
+  <p>
+    Save the original log entry somewhere temporary before cleaning it. Formatting is for reading and
+    debugging; the raw value is still the reference if you need to compare exact escaping, request
+    fields or a reproduction case.
+  </p>
+
+  <h2>Separate system, user and assistant messages</h2>
+  <p>
+    The first debugging question is usually which role caused the behavior. Put each role in its own
+    block so you can see whether the system message set the wrong constraints, the user message carried
+    unexpected context or the assistant output introduced an invalid structure.
+  </p>
+  <ul>
+    <li><strong>System</strong>: policy, tone, task boundaries and hidden assumptions.</li>
+    <li><strong>User</strong>: the actual request, pasted context and user-provided data.</li>
+    <li><strong>Assistant</strong>: model output, intermediate drafts or response examples.</li>
+    <li><strong>Tool</strong>: function arguments, tool results or structured payloads.</li>
+  </ul>
+
+  <h2>Unescape newlines before reading the prompt</h2>
+  <p>
+    Logs commonly show <code>\n</code>, <code>\t</code> and escaped quotes instead of readable text.
+    Once those sequences are converted back into line breaks and indentation, prompt sections, Markdown
+    lists and JSON examples become much easier to inspect. If the log is mostly an escaped string, try
+    the <a href="/unescape-prompt">Unescape Prompt</a> page.
+  </p>
+
+  <h2>Pretty-print nested JSON separately</h2>
+  <p>
+    Prompt logs often include JSON fields such as message arrays, response formats, tool arguments or
+    schema examples. When a nested block is hard to read, copy that specific JSON into
+    <a href="/pretty-print-prompt-json">Pretty Print Prompt JSON</a> or the
+    <a href="/json">JSON Formatter &amp; Validator</a>. This helps you spot missing quotes, invalid
+    trailing commas and schema fields that are not where you expected.
+  </p>
+
+  <h2>Look for the smallest useful clue</h2>
+  <p>
+    Formatting a prompt log is not just cosmetic. It helps you narrow a failure down to a single
+    instruction, value or message turn. After the log is readable, search for the smallest mismatch
+    between what you expected and what the model actually received.
+  </p>
+  <ul>
+    <li>A system instruction that conflicts with the user request.</li>
+    <li>A pasted document that lost headings or list structure.</li>
+    <li>A JSON example that is invalid before the model ever sees it.</li>
+    <li>A tool argument that was serialized as a string when the tool expected an object.</li>
+  </ul>
+
+  <h2>Be careful with sensitive data</h2>
+  <p>
+    Prompt logs can include customer text, API inputs, internal policies or personally identifiable
+    information. Prefer browser-only tools for first-pass formatting, remove secrets before sharing a
+    log with teammates and avoid posting raw production prompts in public issue trackers.
+  </p>
+
+  <h2>A practical workflow</h2>
+  <ul>
+    <li>Open the <a href="/prompt">AI Prompt Formatter</a> and paste the copied log entry.</li>
+    <li>Read the role blocks in order: system, user, assistant and tool messages.</li>
+    <li>Use <a href="/json">JSON Formatter &amp; Validator</a> for any nested JSON that still looks broken.</li>
+    <li>Use <a href="/markdown">Markdown Formatter &amp; Live Preview</a> if the prompt contains Markdown docs.</li>
+    <li>Keep a cleaned version for debugging notes, but compare final fixes against the raw log.</li>
+  </ul>
+
+  <h2>Related tools on {SITE.name}</h2>
+  <ul>
+    <li><a href="/prompt">AI Prompt Formatter</a> for role splitting and readable prompt logs.</li>
+    <li><a href="/format-openai-prompt">Format OpenAI Prompt</a> for an OpenAI-specific formatter page.</li>
+    <li><a href="/read-prompt-from-logs">Read Prompt From Logs</a> for log-focused prompt cleanup.</li>
+    <li><a href="/json">JSON Formatter &amp; Validator</a> for nested payloads and schema snippets.</li>
+  </ul>
+</PageLayout>

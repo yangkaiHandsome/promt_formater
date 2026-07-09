@@ -1,6 +1,7 @@
 ---
 import ToolPage from '../layouts/ToolPage.astro';
 import PromptTool from '../components/PromptTool.tsx';
+import PromptToolLinks from '../components/PromptToolLinks.astro';
 ---
 
 <ToolPage
@@ -9,6 +10,16 @@ import PromptTool from '../components/PromptTool.tsx';
   h1="Pretty-Print JSON Inside a Prompt"
   intro="LLM prompts often carry JSON inline — tool arguments, function calls, structured context — all squashed onto one line. Paste the prompt and get the embedded JSON pretty-printed and the roles laid out cleanly."
   path="/pretty-print-prompt-json"
+  faq={[
+    {
+      q: 'Is it private?',
+      a: 'Yes — all formatting runs in your browser, nothing is uploaded.',
+    },
+    {
+      q: 'Just need to unescape?',
+      a: 'Try the simpler unescape prompt tool.',
+    },
+  ]}
 >
   <PromptTool client:only="react" />
 
@@ -36,5 +47,7 @@ import PromptTool from '../components/PromptTool.tsx';
       Try the simpler
       <a class="text-brand-600 underline" href="/unescape-prompt">unescape prompt</a> tool.
     </p>
+
+    <PromptToolLinks current="/pretty-print-prompt-json" />
   </Fragment>
 </ToolPage>

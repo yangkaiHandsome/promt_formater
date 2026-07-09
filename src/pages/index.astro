@@ -4,6 +4,7 @@ import AdSlot from '../components/AdSlot.astro';
 import ToolIcon from '../components/ToolIcon.astro';
 import { SITE, TOOLS } from '../config';
 import { LANDINGS, GROUP_HOME, type ToolGroup } from '../data/landings';
+import { GUIDES } from '../data/guides';
 
 const tools = Object.values(TOOLS);
 
@@ -18,8 +19,8 @@ const byGroup = groupOrder.map((g) => ({
 ---
 
 <BaseLayout
-  title={`${SITE.name} — Free Markdown, HTML & Prompt Formatters`}
-  description="Free online tools to format Markdown, render HTML safely, and clean up AI prompts. No sign-up, runs entirely in your browser."
+  title={`${SITE.name} — Free Prompt, Markdown, HTML, JSON & Diff Formatters`}
+  description="Free online tools to format AI prompts, preview Markdown, render HTML safely, validate JSON and compare text. No sign-up, runs entirely in your browser."
   path="/"
 >
   <section class="mx-auto max-w-6xl px-4 py-14 text-center">
@@ -29,8 +30,8 @@ const byGroup = groupOrder.map((g) => ({
     <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
       Paste a messy, escaped prompt from your logs and get a clean, color-coded conversation —
       roles split, <code class="rounded bg-slate-100 px-1 py-0.5 text-base">\n</code> unescaped,
-      inline JSON pretty-printed. Plus Markdown and HTML formatters. Everything runs in your
-      browser — nothing is uploaded.
+      inline JSON pretty-printed. Plus Markdown, HTML, JSON and text diff tools. Everything runs in
+      your browser — nothing is uploaded.
     </p>
 
     <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -81,6 +82,33 @@ const byGroup = groupOrder.map((g) => ({
               ))}
             </ul>
           </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-16">
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h2 class="text-2xl font-bold text-slate-900">Formatting guides</h2>
+        <p class="mt-2 max-w-2xl text-slate-600">
+          Short, practical guides for the messy cases people search before they find the right tool.
+        </p>
+      </div>
+      <a class="text-sm font-semibold text-brand-600 hover:underline" href="/guides">
+        View all guides →
+      </a>
+    </div>
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      {
+        GUIDES.map((guide) => (
+          <a
+            href={guide.href}
+            class="block rounded-lg border border-slate-200 bg-white p-5 text-left shadow-sm transition hover:border-brand-400 hover:shadow-md"
+          >
+            <h3 class="font-semibold text-slate-900">{guide.title}</h3>
+            <p class="mt-2 text-sm text-slate-600">{guide.description}</p>
+          </a>
         ))
       }
     </div>

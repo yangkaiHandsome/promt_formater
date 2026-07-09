@@ -1,7 +1,7 @@
 {
-  "name": "FormatTools — Markdown, HTML & AI Prompt Formatters",
-  "short_name": "FormatTools",
-  "description": "Free online tools to format Markdown, render HTML safely, and clean up AI prompts. Runs entirely in your browser.",
+  "name": "PromptFormatter Tools — Prompt, Markdown, HTML, JSON & Diff Formatters",
+  "short_name": "PromptFormatter",
+  "description": "Free online tools to format AI prompts, preview Markdown, render HTML safely, validate JSON and compare text. Runs entirely in your browser.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8fafc",

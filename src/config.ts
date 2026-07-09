@@ -1,8 +1,8 @@
 // 全站共享常量。上线时把 adsenseClient 换成真实的 AdSense publisher id
 // （形如 ca-pub-XXXXXXXXXXXXXXXX），并在 config 里开关 adsenseEnabled。
 export const SITE = {
-  name: 'FormatTools',
-  tagline: 'Free online formatters — Markdown, HTML & AI Prompts',
+  name: 'PromptFormatter Tools',
+  tagline: 'Free online formatters for prompts, Markdown, HTML, JSON and text diffs',
   domain: 'https://promptformatter.top',
   // 面向用户的联系邮箱（About/Contact 页与 AdSense 审核要求）。
   // 上线前换成真实可收信地址（域名邮箱或转发到你的 Gmail）。

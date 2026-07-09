@@ -1,6 +1,7 @@
 ---
 import ToolPage from '../layouts/ToolPage.astro';
 import PromptTool from '../components/PromptTool.tsx';
+import PromptToolLinks from '../components/PromptToolLinks.astro';
 ---
 
 <ToolPage
@@ -9,6 +10,16 @@ import PromptTool from '../components/PromptTool.tsx';
   h1="Format an OpenAI Prompt"
   intro="Debugging an OpenAI or ChatGPT API call? Paste the messages payload from your logs and get a clean, role-by-role conversation you can actually read — system, user and assistant, each on its own block."
   path="/format-openai-prompt"
+  faq={[
+    {
+      q: 'Does it send my prompt to a server?',
+      a: 'No. It runs 100% in your browser, so your OpenAI prompts stay private.',
+    },
+    {
+      q: 'Using Claude instead?',
+      a: 'The same tool works for Anthropic — format a Claude prompt.',
+    },
+  ]}
 >
   <PromptTool client:only="react" />
 
@@ -37,5 +48,7 @@ import PromptTool from '../components/PromptTool.tsx';
       The same tool works for Anthropic —
       <a class="text-brand-600 underline" href="/format-claude-prompt">format a Claude prompt</a>.
     </p>
+
+    <PromptToolLinks current="/format-openai-prompt" />
   </Fragment>
 </ToolPage>

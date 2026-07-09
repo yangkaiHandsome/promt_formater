@@ -1,0 +1,99 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { SITE } from '../../config';
+---
+
+<PageLayout
+  title="How to Fix Invalid JSON — Common Errors and Quick Checks"
+  description="Learn how to fix invalid JSON by checking quotes, commas, escaping, brackets, comments and copied API payloads. Includes a practical browser-only workflow."
+  h1="How to Fix Invalid JSON"
+  path="/guides/how-to-fix-invalid-json"
+>
+  <p>
+    Invalid JSON usually comes from a small syntax problem: one extra comma, one missing quote or a
+    copied value that still contains unescaped line breaks. The fastest way to fix it is to validate
+    the text, find the exact line where parsing stops and then clean only the broken part instead of
+    rewriting the whole file.
+  </p>
+
+  <p>
+    If you already have the payload, paste it into the <a href="/json">JSON Formatter &amp; Validator</a>
+    first. It runs in your browser, so API responses, config snippets and prompt logs are not uploaded
+    to a server.
+  </p>
+
+  <h2>Start with the parser error</h2>
+  <p>
+    JSON parsers usually report the first place where they can no longer understand the document. That
+    point is often slightly after the real mistake, so check the line above the reported error as well.
+    Look for a missing comma between properties, an unfinished string or a bracket that closes too soon.
+  </p>
+
+  <h2>Check quotes and property names</h2>
+  <p>
+    JSON requires double quotes around object keys and string values. Single quotes, smart quotes from a
+    document editor and unquoted property names are valid in some JavaScript examples but not in JSON.
+  </p>
+  <ul>
+    <li>Use <code>"name"</code>, not <code>'name'</code> or <code>name</code>.</li>
+    <li>Use plain double quotes, not curly “smart” quotes.</li>
+    <li>Escape quotes inside strings as <code>\"</code>.</li>
+  </ul>
+
+  <h2>Remove trailing commas</h2>
+  <p>
+    A trailing comma after the last item in an object or array will break strict JSON. This often
+    happens when copying from JavaScript, TypeScript or documentation examples.
+  </p>
+  <ul>
+    <li>Invalid: <code>&#123;"role":"user",&#125;</code></li>
+    <li>Valid: <code>&#123;"role":"user"&#125;</code></li>
+  </ul>
+
+  <h2>Escape line breaks inside strings</h2>
+  <p>
+    Raw line breaks are not allowed inside JSON strings. If a value contains a prompt, Markdown block or
+    email body, line breaks must be escaped as <code>\n</code>. When you are reading LLM request logs,
+    the <a href="/prompt">AI Prompt Formatter</a> can make escaped prompt text easier to inspect before
+    you copy a nested JSON block into the JSON validator.
+  </p>
+
+  <h2>Do not include comments</h2>
+  <p>
+    Standard JSON does not support <code>//</code> or <code>/* ... */</code> comments. If your source is
+    a config-like file with comments, remove those comments before sending it to an API that expects
+    JSON.
+  </p>
+
+  <h2>Match every bracket and brace</h2>
+  <p>
+    Objects use braces, arrays use brackets and every opening character needs the matching close:
+    <code>&#123;&#125;</code> for objects and <code>[]</code> for arrays. A formatter helps here because valid
+    nested JSON becomes visibly indented, while broken nesting usually fails before it can be formatted.
+  </p>
+
+  <h2>A quick fixing workflow</h2>
+  <ul>
+    <li>Paste the payload into the <a href="/json">JSON Formatter &amp; Validator</a>.</li>
+    <li>Read the reported line and column, then check that line and the line above it.</li>
+    <li>Fix quotes, commas, comments, unescaped newlines or mismatched brackets.</li>
+    <li>Validate again and repeat until the JSON formats cleanly.</li>
+    <li>Use minify only after the formatted version is valid and readable.</li>
+  </ul>
+
+  <h2>When invalid JSON comes from AI logs</h2>
+  <p>
+    LLM logs often contain JSON inside JSON: a request body may include a messages array, and each
+    message may include escaped prompt text. For that case, start with the
+    <a href="/prompt">AI Prompt Formatter</a> to separate roles and unescape the prompt, then use
+    <a href="/pretty-print-prompt-json">Pretty Print Prompt JSON</a> or the
+    <a href="/json">JSON Formatter</a> for the nested payload.
+  </p>
+
+  <h2>Related tools on {SITE.name}</h2>
+  <ul>
+    <li><a href="/prompt">AI Prompt Formatter</a> for readable prompt logs.</li>
+    <li><a href="/json">JSON Formatter &amp; Validator</a> for syntax checks and pretty printing.</li>
+    <li><a href="/unescape-prompt">Unescape Prompt</a> for copied strings with literal escape sequences.</li>
+  </ul>
+</PageLayout>

@@ -1,6 +1,7 @@
 ---
 import ToolPage from '../layouts/ToolPage.astro';
 import PromptTool from '../components/PromptTool.tsx';
+import PromptToolLinks from '../components/PromptToolLinks.astro';
 ---
 
 <ToolPage
@@ -9,6 +10,12 @@ import PromptTool from '../components/PromptTool.tsx';
   h1="Unescape a Prompt"
   intro="Copied a prompt out of a log line or JSON string that is full of escaped newlines and quotes? Paste it on the left and get real, readable line breaks on the right — instantly, in your browser."
   path="/unescape-prompt"
+  faq={[
+    {
+      q: 'Is it private?',
+      a: "Yes. Everything runs entirely in your browser — nothing is uploaded — so it's safe to paste real prompts and production data.",
+    },
+  ]}
 >
   <PromptTool client:only="react" />
 
@@ -39,5 +46,7 @@ import PromptTool from '../components/PromptTool.tsx';
       <a class="text-brand-600 underline" href="/prompt-formatter">prompt formatter</a>
       also splits system/user/assistant roles into separate blocks.
     </p>
+
+    <PromptToolLinks current="/unescape-prompt" />
   </Fragment>
 </ToolPage>

@@ -1,6 +1,7 @@
 ---
 import ToolPage from '../layouts/ToolPage.astro';
 import PromptTool from '../components/PromptTool.tsx';
+import PromptToolLinks from '../components/PromptToolLinks.astro';
 ---
 
 <ToolPage
@@ -9,6 +10,16 @@ import PromptTool from '../components/PromptTool.tsx';
   h1="Prompt Debugging Tool"
   intro="Debug LLM prompts by seeing exactly what your app sent the model. Paste a raw, escaped prompt and get a clean, role-by-role view — the fastest way to spot a wrong system prompt, a missing variable, or malformed JSON."
   path="/prompt-debugging-tool"
+  faq={[
+    {
+      q: 'Do you store my prompts?',
+      a: "No. It's fully client-side — nothing is uploaded or stored.",
+    },
+    {
+      q: 'Straight from a log line?',
+      a: 'Yes — read a prompt from your logs.',
+    },
+  ]}
 >
   <PromptTool client:only="react" />
 
@@ -36,5 +47,7 @@ import PromptTool from '../components/PromptTool.tsx';
       Yes —
       <a class="text-brand-600 underline" href="/read-prompt-from-logs">read a prompt from your logs</a>.
     </p>
+
+    <PromptToolLinks current="/prompt-debugging-tool" />
   </Fragment>
 </ToolPage>

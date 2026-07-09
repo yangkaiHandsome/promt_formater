@@ -1,0 +1,28 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { GUIDES } from '../../data/guides';
+---
+
+<PageLayout
+  title="Formatting Guides for Developers"
+  description="Practical guides for formatting AI prompt logs, fixing invalid JSON and previewing Markdown before publishing. Written for private, browser-only workflows."
+  h1="Formatting Guides"
+  path="/guides"
+>
+  <p>
+    Practical references for common formatting and debugging tasks: reading AI prompt logs, fixing
+    invalid JSON and checking Markdown before it goes public. Each guide links back to the browser-only
+    tool that handles the job.
+  </p>
+
+  <ul>
+    {
+      GUIDES.map((guide) => (
+        <li>
+          <a href={guide.href}>{guide.title}</a>
+          <p>{guide.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</PageLayout>

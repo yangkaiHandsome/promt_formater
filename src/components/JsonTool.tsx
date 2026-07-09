@@ -6,7 +6,7 @@ import ToolShell, { CopyButton } from './ToolShell';
 
 hljs.registerLanguage('json', jsonLang);
 
-const SAMPLE = `{"name":"FormatTools","version":2,"free":true,"tools":["prompt","markdown","html","json"],"meta":{"private":true,"nested":{"note":"everything runs in your browser"}},"tags":["seo","utility"]}`;
+const SAMPLE = `{"name":"PromptFormatter Tools","version":2,"free":true,"tools":["prompt","markdown","html","json","diff"],"meta":{"private":true,"nested":{"note":"everything runs in your browser"}},"tags":["seo","utility"]}`;
 
 type Indent = 2 | 4 | 'tab';
 type Mode = 'beautify' | 'minify';

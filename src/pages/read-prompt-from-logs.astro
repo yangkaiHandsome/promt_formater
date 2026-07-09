@@ -1,6 +1,7 @@
 ---
 import ToolPage from '../layouts/ToolPage.astro';
 import PromptTool from '../components/PromptTool.tsx';
+import PromptToolLinks from '../components/PromptToolLinks.astro';
 ---
 
 <ToolPage
@@ -9,6 +10,16 @@ import PromptTool from '../components/PromptTool.tsx';
   h1="Read a Prompt From Your Logs"
   intro="AI engineers log their prompts to debug them — but in the console they arrive as one giant escaped line with the roles mashed together. Paste that log line here and get a clean, readable conversation back."
   path="/read-prompt-from-logs"
+  faq={[
+    {
+      q: 'Can I paste production logs?',
+      a: 'Yes — nothing leaves your browser, so real production prompts and data stay private.',
+    },
+    {
+      q: 'Which APIs work?',
+      a: 'OpenAI, Claude and other LLM formats. See OpenAI and Claude guides.',
+    },
+  ]}
 >
   <PromptTool client:only="react" />
 
@@ -39,5 +50,7 @@ import PromptTool from '../components/PromptTool.tsx';
       <a class="text-brand-600 underline" href="/format-openai-prompt">OpenAI</a> and
       <a class="text-brand-600 underline" href="/format-claude-prompt">Claude</a> guides.
     </p>
+
+    <PromptToolLinks current="/read-prompt-from-logs" />
   </Fragment>
 </ToolPage>
