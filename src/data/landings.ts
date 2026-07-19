@@ -1128,9 +1128,9 @@ export function relatedLandings(slug: string, group: ToolGroup): Landing[] {
 
 /** 每个 group 对应的主工具页，用于内链回主页面。 */
 export const GROUP_HOME: Record<ToolGroup, { href: string; label: string }> = {
-  prompt: { href: '/prompt', label: 'AI Prompt Formatter' },
-  markdown: { href: '/markdown', label: 'Markdown Formatter' },
-  html: { href: '/html', label: 'HTML Viewer & Formatter' },
-  json: { href: '/json', label: 'JSON Formatter & Validator' },
-  diff: { href: '/diff', label: 'Text Diff Checker' },
+  prompt: { href: '/prompt/', label: 'AI Prompt Formatter' },
+  markdown: { href: '/markdown/', label: 'Markdown Formatter' },
+  html: { href: '/html/', label: 'HTML Viewer & Formatter' },
+  json: { href: '/json/', label: 'JSON Formatter & Validator' },
+  diff: { href: '/diff/', label: 'Text Diff Checker' },
 };

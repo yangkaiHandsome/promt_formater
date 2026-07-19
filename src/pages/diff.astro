@@ -23,6 +23,10 @@ import LandingLinks from '../components/LandingLinks.astro';
       q: 'How does the shareable link work?',
       a: 'The Copy shareable link button encodes both texts into the URL itself, so opening that link restores the same comparison. The data lives in the link, not on our servers.',
     },
+    {
+      q: 'Should I share sensitive text with the link feature?',
+      a: 'No. A shareable link contains the compared text in the URL. Anyone who receives or records that URL may be able to read it, so do not use it for secrets or private documents.',
+    },
   ]}
 >
   <DiffTool client:only="react" />
@@ -43,6 +47,30 @@ import LandingLinks from '../components/LandingLinks.astro';
       <li>Switch between <strong>Split</strong> and <strong>Unified</strong> views, or copy a shareable link.</li>
     </ol>
 
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Choose the right comparison view</h2>
+    <p class="mt-2">
+      Split view keeps old and new text side by side, which is useful when line order stays mostly
+      stable. Unified view puts additions and removals into one stream, making it easier to review on
+      a narrow screen. Word-level highlighting explains small edits inside a changed line instead of
+      marking the entire sentence as unrelated.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">When to ignore case or whitespace</h2>
+    <p class="mt-2">
+      Ignore whitespace when indentation or line padding changed but content did not. Ignore case for
+      prose or identifiers only when capitalization is genuinely irrelevant. For source code, JSON
+      keys, passwords and case-sensitive configuration, leave case comparison enabled so meaningful
+      changes are not hidden.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Privacy and shareable links</h2>
+    <p class="mt-2">
+      Normal comparisons happen locally in your browser. The optional shareable link is different:
+      it encodes both texts into the URL so another browser can reconstruct the comparison without a
+      database. Treat that URL as containing the original documents. Do not create or send one for
+      credentials, private contracts, personal data or proprietary source code.
+    </p>
+
     <h2 class="mt-6 text-xl font-bold text-slate-900">Frequently asked questions</h2>
     <h3 class="mt-4 font-semibold text-slate-800">Is my text uploaded anywhere?</h3>
     <p class="mt-1">
@@ -58,6 +86,11 @@ import LandingLinks from '../components/LandingLinks.astro';
     <p class="mt-1">
       The Copy shareable link button encodes both texts into the URL itself, so opening that link
       restores the same comparison. The data lives in the link, not on our servers.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Should I share sensitive text with the link feature?</h3>
+    <p class="mt-1">
+      No. A shareable link contains the compared text in the URL. Anyone who receives or records that
+      URL may be able to read it, so do not use it for secrets or private documents.
     </p>
 
     <LandingLinks group="diff" heading="More comparison tools" />

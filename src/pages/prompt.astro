@@ -19,6 +19,14 @@ import PromptToolLinks from '../components/PromptToolLinks.astro';
       q: 'Is anything sent to a server?',
       a: 'No — formatting runs entirely in your browser, so prompts stay private.',
     },
+    {
+      q: 'What input formats can I paste?',
+      a: 'You can paste plain prompt text, escaped log output, role-labeled conversations, JSON message arrays and request payloads that contain prompt text.',
+    },
+    {
+      q: 'Does formatting change what the model received?',
+      a: 'The formatter creates a readable view for inspection. Always compare the formatted result with the original log before reusing it as an exact API payload.',
+    },
   ]}
 >
   <PromptTool client:only="react" />
@@ -39,6 +47,31 @@ import PromptToolLinks from '../components/PromptToolLinks.astro';
       <li><strong>Split roles</strong> — system, user, assistant, tool — onto their own blocks.</li>
     </ul>
 
+    <h2 class="mt-6 text-xl font-bold text-slate-900">A practical debugging example</h2>
+    <p class="mt-2">
+      An OpenAI or Anthropic request copied from a log may contain a messages array on one line,
+      escaped line breaks inside <code>content</code>, and nested tool arguments stored as a JSON
+      string. The formatter separates each role, restores readable whitespace and indents embedded
+      objects. That makes it easier to spot a missing system instruction, a duplicated user turn or
+      malformed tool arguments without editing the source log first.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">How to inspect a logged prompt safely</h2>
+    <ol class="mt-2 list-decimal space-y-2 pl-6">
+      <li>Copy the smallest complete request or conversation from your application log.</li>
+      <li>Paste it into the formatter and check that the detected role boundaries match the original.</li>
+      <li>Review system instructions, user content and tool payloads separately.</li>
+      <li>Keep the raw log available: the formatted view is for reading, not a replacement for forensic evidence.</li>
+    </ol>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">What the formatter deliberately does not do</h2>
+    <p class="mt-2">
+      It does not send the prompt to an AI model, judge prompt quality, count model-specific tokens or
+      guarantee that reconstructed JSON is byte-for-byte identical to the original request. Secrets
+      can still be visible on your screen, so redact API keys and personal data before sharing a
+      screenshot or copied result.
+    </p>
+
     <h2 class="mt-6 text-xl font-bold text-slate-900">Frequently asked questions</h2>
     <h3 class="mt-4 font-semibold text-slate-800">Does it work with ChatGPT / OpenAI prompts?</h3>
     <p class="mt-1">
@@ -46,6 +79,16 @@ import PromptToolLinks from '../components/PromptToolLinks.astro';
     </p>
     <h3 class="mt-4 font-semibold text-slate-800">Is anything sent to a server?</h3>
     <p class="mt-1">No — formatting runs entirely in your browser, so prompts stay private.</p>
+    <h3 class="mt-4 font-semibold text-slate-800">What input formats can I paste?</h3>
+    <p class="mt-1">
+      You can paste plain prompt text, escaped log output, role-labeled conversations, JSON message
+      arrays and request payloads that contain prompt text.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Does formatting change what the model received?</h3>
+    <p class="mt-1">
+      The formatter creates a readable view for inspection. Always compare the formatted result with
+      the original log before reusing it as an exact API payload.
+    </p>
 
     <PromptToolLinks current="/prompt" />
   </Fragment>

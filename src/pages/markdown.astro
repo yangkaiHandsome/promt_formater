@@ -23,6 +23,10 @@ import LandingLinks from '../components/LandingLinks.astro';
       q: 'Can I convert Markdown to HTML?',
       a: 'Yes — the preview is real HTML. Use the Copy button to export it, or try our dedicated Markdown to HTML converter.',
     },
+    {
+      q: 'Does it render raw HTML inside Markdown?',
+      a: 'No. Raw HTML is disabled and the rendered output is sanitized, which makes previews safer but means embedded HTML snippets are shown as text rather than executed.',
+    },
   ]}
 >
   <MarkdownTool client:only="react" />
@@ -42,6 +46,29 @@ import LandingLinks from '../components/LandingLinks.astro';
       <li>Click <strong>Copy</strong> to grab the HTML, or <strong>Download .md</strong>.</li>
     </ol>
 
+    <h2 class="mt-6 text-xl font-bold text-slate-900">What this preview supports</h2>
+    <p class="mt-2">
+      The renderer covers the syntax used in most READMEs, documentation pages and technical notes:
+      headings, emphasis, links, images, blockquotes, nested lists, tables, fenced code blocks and
+      inline code. Automatic link detection is enabled, and code blocks are displayed separately so
+      long snippets remain readable.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Where platform previews can differ</h2>
+    <p class="mt-2">
+      Markdown is a family of related dialects, not one universal renderer. GitHub task lists,
+      Obsidian wikilinks, footnotes and CMS-specific shortcodes can behave differently across apps.
+      Use this page for standard Markdown structure, then check the final publishing platform when a
+      document depends on proprietary extensions.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Safe previewing</h2>
+    <p class="mt-2">
+      Raw HTML inside Markdown is disabled, and the rendered result is sanitized before display.
+      This prevents pasted scripts and event handlers from executing. Rendering and conversion stay
+      on your device; the site does not upload drafts, README files or copied documentation.
+    </p>
+
     <h2 class="mt-6 text-xl font-bold text-slate-900">Frequently asked questions</h2>
     <h3 class="mt-4 font-semibold text-slate-800">Is my content uploaded anywhere?</h3>
     <p class="mt-1">
@@ -55,6 +82,11 @@ import LandingLinks from '../components/LandingLinks.astro';
     <p class="mt-1">
       Yes — the preview is real HTML. Use the Copy button to export it, or try our dedicated
       <a class="text-brand-600 underline" href="/markdown-to-html">Markdown to HTML converter</a>.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Does it render raw HTML inside Markdown?</h3>
+    <p class="mt-1">
+      No. Raw HTML is disabled and the rendered output is sanitized, which makes previews safer but
+      means embedded HTML snippets are shown as text rather than executed.
     </p>
 
     <LandingLinks group="markdown" heading="More Markdown tools" />

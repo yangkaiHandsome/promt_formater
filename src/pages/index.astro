@@ -14,7 +14,9 @@ const groupOrder: ToolGroup[] = ['prompt', 'markdown', 'html', 'json', 'diff'];
 const byGroup = groupOrder.map((g) => ({
   group: g,
   home: GROUP_HOME[g],
-  items: LANDINGS.filter((l) => l.group === g),
+  // Keep the homepage focused on representative intents. Each tool hub links the
+  // complete cluster, preserving crawl paths without flattening the whole site.
+  items: LANDINGS.filter((l) => l.group === g).slice(0, 3),
 }));
 ---
 
@@ -58,10 +60,10 @@ const byGroup = groupOrder.map((g) => ({
   </section>
 
   <section class="mx-auto max-w-6xl px-4 pb-16">
-    <h2 class="text-center text-2xl font-bold text-slate-900">Popular formatters</h2>
+    <h2 class="text-center text-2xl font-bold text-slate-900">Popular formatting tasks</h2>
     <p class="mx-auto mt-2 max-w-2xl text-center text-slate-600">
-      Jump straight to the exact tool you need — every one runs in your browser, free and
-      without sign-up.
+      Start with a common task or open a tool hub to browse every specialized formatter.
+      Every tool runs locally in your browser, free and without sign-up.
     </p>
     <div class="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
       {
@@ -75,12 +77,15 @@ const byGroup = groupOrder.map((g) => ({
             <ul class="mt-3 space-y-2 text-sm">
               {col.items.map((l) => (
                 <li>
-                  <a class="text-slate-700 hover:text-brand-600 hover:underline" href={`/${l.slug}`}>
+                  <a class="text-slate-700 hover:text-brand-600 hover:underline" href={`/${l.slug}/`}>
                     {l.h1}
                   </a>
                 </li>
               ))}
             </ul>
+            <a class="mt-3 inline-block text-sm font-semibold text-brand-600 hover:underline" href={col.home.href}>
+              View all {col.home.label.toLowerCase()} →
+            </a>
           </div>
         ))
       }
@@ -95,7 +100,7 @@ const byGroup = groupOrder.map((g) => ({
           Short, practical guides for the messy cases people search before they find the right tool.
         </p>
       </div>
-      <a class="text-sm font-semibold text-brand-600 hover:underline" href="/guides">
+      <a class="text-sm font-semibold text-brand-600 hover:underline" href="/guides/">
         View all guides →
       </a>
     </div>

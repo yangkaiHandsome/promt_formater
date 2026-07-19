@@ -19,6 +19,10 @@ import LandingLinks from '../components/LandingLinks.astro';
       q: 'Can I beautify minified HTML?',
       a: 'Yes — switch to the Format tab to re-indent and wrap minified or messy markup.',
     },
+    {
+      q: 'Will external stylesheets or interactive widgets work?',
+      a: 'The preview is intended for static markup. Scripts are blocked, and external resources or browser-dependent widgets may not match a production page.',
+    },
   ]}
 >
   <HtmlTool client:only="react" />
@@ -38,12 +42,42 @@ import LandingLinks from '../components/LandingLinks.astro';
       this page.
     </p>
 
+    <h2 class="mt-6 text-xl font-bold text-slate-900">How the two modes differ</h2>
+    <p class="mt-2">
+      <strong>Preview</strong> answers “what does this static markup render?” while
+      <strong>Format</strong> answers “how is this document nested?” Preview sanitizes the input and
+      displays it in an isolated frame. Format uses a code formatter to add consistent indentation
+      and line breaks. Formatting improves readability; it is not an HTML validator and does not fix
+      every semantic or accessibility problem.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Useful checks before publishing HTML</h2>
+    <ul class="mt-2 list-disc space-y-2 pl-6">
+      <li>Confirm that opening and closing tags are nested where you expect.</li>
+      <li>Check headings in a logical order and add useful alternative text to images.</li>
+      <li>Test links, forms, responsive CSS and JavaScript in the real target environment.</li>
+      <li>Never treat a sandboxed preview as proof that untrusted HTML is safe to publish elsewhere.</li>
+    </ul>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Why the preview may differ from your website</h2>
+    <p class="mt-2">
+      A pasted fragment does not automatically include your site’s stylesheets, fonts, scripts or
+      surrounding layout. Interactive components are intentionally disabled. For an accurate final
+      check, copy the cleaned markup back into the project and test it with the same CSS and assets
+      the production page uses.
+    </p>
+
     <h2 class="mt-6 text-xl font-bold text-slate-900">Frequently asked questions</h2>
     <h3 class="mt-4 font-semibold text-slate-800">Will JavaScript in my HTML run?</h3>
     <p class="mt-1">No. Scripts are removed and the sandbox blocks execution, by design.</p>
     <h3 class="mt-4 font-semibold text-slate-800">Can I beautify minified HTML?</h3>
     <p class="mt-1">
       Yes — switch to the <strong>Format</strong> tab to re-indent and wrap minified or messy markup.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Will external stylesheets or interactive widgets work?</h3>
+    <p class="mt-1">
+      The preview is intended for static markup. Scripts are blocked, and external resources or
+      browser-dependent widgets may not match a production page.
     </p>
 
     <LandingLinks group="html" heading="More HTML tools" />

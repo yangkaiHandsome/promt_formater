@@ -20,7 +20,8 @@ const LINKS: { href: string; label: string; blurb: string }[] = [
   { href: '/llm-prompt-formatter', label: 'LLM Prompt Formatter', blurb: 'Works with any model’s prompts.' },
 ];
 
-const links = LINKS.filter((l) => l.href !== current);
+const normalizePath = (path: string) => path.replace(/\/$/, '');
+const links = LINKS.filter((l) => normalizePath(l.href) !== normalizePath(current));
 ---
 
 <section class="mt-10 not-prose">
@@ -29,7 +30,7 @@ const links = LINKS.filter((l) => l.href !== current);
     {links.map((l) => (
       <li>
         <a
-          href={l.href}
+          href={`${l.href}/`}
           class="block rounded-lg border border-slate-200 p-3 transition hover:border-brand-400 hover:bg-slate-50"
         >
           <span class="font-semibold text-brand-600">{l.label}</span>

@@ -23,6 +23,10 @@ import LandingLinks from '../components/LandingLinks.astro';
       q: 'Can I minify JSON as well as beautify it?',
       a: 'Yes. Switch to Minify to strip all whitespace into a single compact line, or use Beautify with 2 spaces, 4 spaces or tabs.',
     },
+    {
+      q: 'Does it accept JSON with comments or trailing commas?',
+      a: 'No. It validates strict JSON, so comments, trailing commas, single-quoted strings and unquoted property names are reported as errors.',
+    },
   ]}
 >
   <JsonTool client:only="react" />
@@ -44,6 +48,30 @@ import LandingLinks from '../components/LandingLinks.astro';
       <li>Click <strong>Copy</strong> or <strong>Download</strong> to save the result.</li>
     </ol>
 
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Strict JSON rules the validator checks</h2>
+    <p class="mt-2">
+      Valid JSON requires double-quoted property names and strings, balanced brackets, and commas
+      only between values. JavaScript conveniences such as comments, trailing commas,
+      <code>undefined</code>, <code>NaN</code> and single-quoted strings are not valid JSON. Keeping
+      validation strict helps catch payloads that may work in a permissive editor but fail in an API.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">How to use an error location</h2>
+    <p class="mt-2">
+      Start at the reported line and column, but also inspect the character immediately before it.
+      Parsers often notice an error only when the next token becomes impossible. A message near a
+      closing brace, for example, may be caused by a missing comma on the previous line or an
+      unescaped quote earlier in the same string.
+    </p>
+
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Beautify versus minify</h2>
+    <p class="mt-2">
+      Beautifying adds whitespace for humans and is best for debugging, review and version control.
+      Minifying removes insignificant whitespace for compact storage or transport. Both operations
+      preserve parsed values, but large integers and duplicate object keys deserve extra care because
+      JavaScript parsing behavior may not preserve every source-level detail.
+    </p>
+
     <h2 class="mt-6 text-xl font-bold text-slate-900">Frequently asked questions</h2>
     <h3 class="mt-4 font-semibold text-slate-800">Is my JSON uploaded anywhere?</h3>
     <p class="mt-1">
@@ -59,6 +87,11 @@ import LandingLinks from '../components/LandingLinks.astro';
     <p class="mt-1">
       Yes. Switch to Minify to strip all whitespace into a single compact line, or use Beautify with
       2 spaces, 4 spaces or tabs.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Does it accept JSON with comments or trailing commas?</h3>
+    <p class="mt-1">
+      No. It validates strict JSON, so comments, trailing commas, single-quoted strings and unquoted
+      property names are reported as errors.
     </p>
 
     <LandingLinks group="json" heading="More JSON tools" />
