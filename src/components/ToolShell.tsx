@@ -106,7 +106,7 @@ export default function ToolShell({
 }
 
 /** 通用「复制」按钮，2 秒内反馈已复制 */
-export function CopyButton({ getText }: { getText: () => string }) {
+export function CopyButton({ getText, label = 'Copy' }: { getText: () => string; label?: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <button
@@ -122,7 +122,7 @@ export function CopyButton({ getText }: { getText: () => string }) {
       }}
       className="rounded-md px-2 py-1 text-xs font-medium text-brand-600 hover:bg-brand-50"
     >
-      {copied ? 'Copied!' : 'Copy'}
+      {copied ? 'Copied!' : label}
     </button>
   );
 }

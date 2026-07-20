@@ -1,0 +1,32 @@
+# Consolidate near-duplicate SEO landing pages into the strongest canonical tools.
+/prompt-formatter/ /prompt/ 301
+/chatgpt-prompt-formatter/ /format-openai-prompt/ 301
+/llm-prompt-formatter/ /prompt/ 301
+/ai-prompt-message-formatter/ /prompt/ 301
+
+/markdown-preview/ /markdown/ 301
+/markdown-editor-online/ /markdown/ 301
+/markdown-viewer/ /markdown/ 301
+/md-to-html/ /markdown-to-html/ 301
+
+/html-viewer/ /html/ 301
+/html-formatter/ /html/ 301
+/html-beautifier/ /html/ 301
+/html-previewer/ /html/ 301
+/unminify-html/ /html/ 301
+/html-prettifier/ /html/ 301
+/html-editor-online/ /html-playground/ 301
+
+/json-validator/ /json/ 301
+/json-beautifier/ /json/ 301
+/json-minifier/ /json/ 301
+/json-viewer/ /json/ 301
+/json-pretty-print/ /json/ 301
+/json-parser-online/ /json/ 301
+/json-syntax-checker/ /json/ 301
+
+/text-compare/ /diff/ 301
+/diff-checker/ /diff/ 301
+/compare-two-files/ /diff/ 301
+/compare-text-online/ /diff/ 301
+/side-by-side-diff/ /diff/ 301

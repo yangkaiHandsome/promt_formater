@@ -90,6 +90,28 @@ const LOG_RE =
 // 代码围栏 ```lang ... ```
 const FENCE_RE = /```([a-zA-Z0-9_+-]*)\r?\n?([\s\S]*?)```/g;
 
+const SENSITIVE_CHECKS = [
+  { label: 'bearer token', re: /\bBearer\s+[A-Za-z0-9._~+/-]{12,}={0,2}/gi },
+  { label: 'API key', re: /\bsk-(?:proj-|live-)?[A-Za-z0-9_-]{12,}/gi },
+  { label: 'private key', re: /-----BEGIN [A-Z ]*PRIVATE KEY-----/g },
+  { label: 'email address', re: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi },
+];
+
+function sensitiveSignals(text: string): string[] {
+  return SENSITIVE_CHECKS.filter(({ re }) => {
+    re.lastIndex = 0;
+    return re.test(text);
+  }).map(({ label }) => label);
+}
+
+function redactSensitiveDraft(text: string): string {
+  return text
+    .replace(/-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?-----END [A-Z ]*PRIVATE KEY-----/g, '[REDACTED_PRIVATE_KEY]')
+    .replace(/\bBearer\s+[A-Za-z0-9._~+/-]{12,}={0,2}/gi, 'Bearer [REDACTED_TOKEN]')
+    .replace(/\bsk-(?:proj-|live-)?[A-Za-z0-9_-]{12,}/gi, '[REDACTED_API_KEY]')
+    .replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi, '[REDACTED_EMAIL]');
+}
+
 interface Options {
   unescape: boolean;
   prettyJson: boolean;
@@ -512,6 +534,7 @@ export default function PromptTool() {
     () => (request ? requestToPlainText(request) : toPlainText(segments)),
     [request, segments],
   );
+  const sensitive = useMemo(() => sensitiveSignals(input), [input]);
 
   const onUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -570,6 +593,20 @@ export default function PromptTool() {
           </>
         )}
       </div>
+      {sensitive.length > 0 && (
+        <div className="flex flex-col gap-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <strong>Possible sensitive data detected:</strong> {sensitive.join(', ')}. Automated checks
+            are incomplete—review every message and tool result before sharing.
+          </div>
+          <a
+            href="/guides/redact-secrets-from-prompt-logs/"
+            className="shrink-0 text-xs font-bold text-amber-800 underline"
+          >
+            Redaction checklist
+          </a>
+        </div>
+      )}
       <ToolShell
         input={input}
         onInput={setInput}
@@ -578,7 +615,14 @@ export default function PromptTool() {
         rightLabel="Formatted"
         sample={REQUEST_SAMPLE}
         leftActions={uploadButton}
-        toolbar={<CopyButton getText={() => plain} />}
+        toolbar={
+          <>
+            {sensitive.length > 0 && (
+              <CopyButton getText={() => redactSensitiveDraft(plain)} label="Copy redacted draft" />
+            )}
+            <CopyButton getText={() => plain} />
+          </>
+        }
       >
         {!input ? (
           <p className="px-4 py-3 text-sm text-slate-400">Your cleaned-up prompt appears here.</p>

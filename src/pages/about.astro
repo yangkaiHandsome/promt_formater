@@ -5,15 +5,15 @@ import { SITE } from '../config';
 
 <PageLayout
   title={`About ${SITE.name}`}
-  description={`${SITE.name} is a free collection of privacy-first online formatters for AI prompts, Markdown and HTML. Everything runs in your browser — nothing is uploaded.`}
+  description={`${SITE.name} builds privacy-first browser tools for inspecting LLM requests and formatting Markdown, HTML, JSON and text diffs.`}
   h1={`About ${SITE.name}`}
   path="/about"
 >
   <p>
-    <strong>{SITE.name}</strong> is a small collection of free, privacy-first
-    formatting tools for developers and anyone who works with text. We built it
-    because copying a prompt, a chunk of Markdown or some messy HTML out of your
-    logs and making it readable shouldn't require signing up for anything.
+    <strong>{SITE.name}</strong> is an independently maintained collection of private, browser-only
+    developer tools. Its primary purpose is to make the exact request sent to an LLM readable: message
+    roles, escaped prompt text, tool calls and nested JSON. The supporting Markdown, HTML, JSON and
+    diff tools cover the formats developers usually inspect around that workflow.
   </p>
 
   <h2>What you can do here</h2>
@@ -31,7 +31,37 @@ import { SITE } from '../config';
       <a href="/html">HTML Viewer &amp; Formatter</a> — render HTML safely in a
       sandbox or beautify messy markup instantly.
     </li>
+    <li>
+      <a href="/json/">JSON Formatter &amp; Validator</a> — validate strict JSON, locate syntax errors
+      and create a readable or minified copy.
+    </li>
+    <li>
+      <a href="/diff/">Text Diff Checker</a> — compare request payloads, configuration and prose in
+      split or unified views.
+    </li>
   </ul>
+
+  <h2>How the tools are built and checked</h2>
+  <p>
+    The site is a static Astro application deployed on Cloudflare Pages. Formatting happens in the
+    browser with established libraries where appropriate. HTML previews are sanitized and rendered in
+    an iframe with an empty sandbox, while Markdown disables raw HTML and sanitizes its rendered
+    output. Production builds are verified before deployment, and guides are reviewed against the
+    behavior of the live tools when their verified date changes.
+  </p>
+  <p>
+    The source is available in the
+    <a href="https://github.com/yangkaiHandsome/promt_formater" rel="noopener noreferrer">public GitHub repository</a>,
+    so privacy and security claims can be inspected rather than taken on trust.
+  </p>
+
+  <h2>Our content standard</h2>
+  <p>
+    Guides are written for concrete debugging tasks and include reproducible examples, known limits
+    and links to the relevant tool. We consolidate pages when two URLs solve the same job instead of
+    publishing search-only variations. Material corrections and safety issues can be reported through
+    the contact page.
+  </p>
 
   <h2>Our principles</h2>
   <ul>

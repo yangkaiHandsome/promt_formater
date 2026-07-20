@@ -1,0 +1,7 @@
+# Keep Cloudflare preview and project subdomains out of search results. The
+# custom domain remains indexable and every page declares its canonical URL.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex

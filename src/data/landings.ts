@@ -23,7 +23,7 @@ export interface Landing {
   faq: { q: string; a: string }[];
 }
 
-export const LANDINGS: Landing[] = [
+const ALL_LANDINGS: Landing[] = [
   // ---------------- Markdown 意图簇（复用 MarkdownTool：md → 实时 HTML 预览） ----------------
   {
     slug: 'markdown-preview',
@@ -1015,7 +1015,7 @@ export const LANDINGS: Landing[] = [
       },
       {
         h2: 'Tip: beautify before you diff',
-        html: '<p>Minified JSON diffs poorly because everything sits on one line. Run each side through the <a href="/json-beautifier">JSON beautifier</a> first so every key is on its own line, then paste the formatted versions here for a clean, readable diff.</p>',
+        html: '<p>Minified JSON diffs poorly because everything sits on one line. Run each side through the <a href="/json/">JSON Formatter &amp; Validator</a> first so every key is on its own line, then paste the formatted versions here for a clean, readable diff.</p>',
       },
     ],
     faq: [
@@ -1121,6 +1121,27 @@ export const LANDINGS: Landing[] = [
   },
 ];
 
+// Only publish pages with a genuinely distinct task and useful search intent.
+// Near-duplicate keyword variants are redirected in public/_redirects so their
+// signals consolidate into the strongest tool hub instead of competing with it.
+const INDEXABLE_SLUGS = new Set([
+  'github-markdown-preview',
+  'markdown-cheat-sheet',
+  'reddit-markdown',
+  'obsidian-markdown-preview',
+  'html-playground',
+  'email-html-preview',
+  'system-prompt-formatter',
+  'json-file-viewer',
+  'json-diff',
+  'code-diff-online',
+  'whitespace-diff-checker',
+]);
+
+export const LANDINGS: Landing[] = ALL_LANDINGS.filter((landing) =>
+  INDEXABLE_SLUGS.has(landing.slug),
+);
+
 /** 同组（同工具）的其它落地页，用于页内互链（排除自己）。 */
 export function relatedLandings(slug: string, group: ToolGroup): Landing[] {
   return LANDINGS.filter((l) => l.group === group && l.slug !== slug);
@@ -1128,7 +1149,7 @@ export function relatedLandings(slug: string, group: ToolGroup): Landing[] {
 
 /** 每个 group 对应的主工具页，用于内链回主页面。 */
 export const GROUP_HOME: Record<ToolGroup, { href: string; label: string }> = {
-  prompt: { href: '/prompt/', label: 'AI Prompt Formatter' },
+  prompt: { href: '/prompt/', label: 'LLM Request Inspector' },
   markdown: { href: '/markdown/', label: 'Markdown Formatter' },
   html: { href: '/html/', label: 'HTML Viewer & Formatter' },
   json: { href: '/json/', label: 'JSON Formatter & Validator' },

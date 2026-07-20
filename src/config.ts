@@ -2,7 +2,7 @@
 // （形如 ca-pub-XXXXXXXXXXXXXXXX），并在 config 里开关 adsenseEnabled。
 export const SITE = {
   name: 'PromptFormatter Tools',
-  tagline: 'Free online formatters for prompts, Markdown, HTML, JSON and text diffs',
+  tagline: 'Private browser tools for inspecting LLM requests and formatting developer data',
   domain: 'https://promptformatter.top',
   // 面向用户的联系邮箱（About/Contact 页与 AdSense 审核要求）。
   // 上线前换成真实可收信地址（域名邮箱或转发到你的 Gmail）。
@@ -28,8 +28,8 @@ export const TOOLS: Record<
 > = {
   prompt: {
     key: 'prompt',
-    title: 'AI Prompt Formatter',
-    blurb: 'Clean up messy debugging prompts — tidy roles, indentation and embedded JSON.',
+    title: 'LLM Request Inspector',
+    blurb: 'Read OpenAI and Claude request logs — split roles, tool calls and embedded JSON.',
     icon: 'prompt',
     href: '/prompt/',
   },

@@ -5,22 +5,28 @@ import { GUIDES } from '../../data/guides';
 
 <PageLayout
   title="Formatting Guides for Developers"
-  description="Practical guides for formatting AI prompt logs, fixing invalid JSON and previewing Markdown before publishing. Written for private, browser-only workflows."
-  h1="Formatting Guides"
+  description="Practical field guides for debugging LLM request payloads, redacting prompt logs, fixing invalid JSON and previewing developer content safely."
+  h1="LLM Debugging & Formatting Guides"
   path="/guides"
 >
-  <p>
-    Practical references for common formatting and debugging tasks: reading AI prompt logs, fixing
-    invalid JSON and checking Markdown before it goes public. Each guide links back to the browser-only
-    tool that handles the job.
+  <p class="text-lg leading-8">
+    Field-tested workflows for inspecting the request your application sent to an LLM, cleaning up
+    nested developer data and sharing a safe reproduction. Every guide names the limits of the tool it
+    uses and keeps sensitive content in the browser.
   </p>
 
-  <ul>
+  <div class="my-8 grid gap-3 rounded-2xl border border-slate-800 bg-slate-950 p-5 text-sm text-slate-300 sm:grid-cols-3">
+    <div><span class="block font-mono text-xs text-emerald-400">01 / CAPTURE</span>Keep the raw request as evidence.</div>
+    <div><span class="block font-mono text-xs text-emerald-400">02 / INSPECT</span>Format a local working copy.</div>
+    <div><span class="block font-mono text-xs text-emerald-400">03 / REPRODUCE</span>Reduce it without changing the failure.</div>
+  </div>
+
+  <ul class="!list-none !space-y-4 !pl-0">
     {
       GUIDES.map((guide) => (
-        <li>
-          <a href={guide.href}>{guide.title}</a>
-          <p>{guide.description}</p>
+        <li class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow-md">
+          <a class="text-lg font-bold" href={guide.href}>{guide.title}</a>
+          <p class="text-sm text-slate-600">{guide.description}</p>
         </li>
       ))
     }

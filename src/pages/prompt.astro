@@ -5,10 +5,10 @@ import PromptToolLinks from '../components/PromptToolLinks.astro';
 ---
 
 <ToolPage
-  title="AI Prompt Formatter — Make Logged LLM Prompts Readable"
-  description="Paste a messy, escaped prompt from your logs and get a clean conversation: unescape \n, pretty-print inline JSON, and split system/user/assistant roles. Free, private, in-browser."
-  h1="Make Your Logged LLM Prompts Readable"
-  intro="You log a prompt to debug it — and the console shows one giant escaped line with the roles mashed together. Paste that mess on the left and get a clean, color-coded conversation on the right. For AI engineers."
+  title="LLM Request Inspector — Format OpenAI & Claude Logs"
+  description="Inspect OpenAI and Claude request logs in your browser. Split system, user, assistant and tool messages, unescape prompt text and pretty-print nested JSON."
+  h1="LLM Request Inspector"
+  intro="Paste the final OpenAI or Claude request from your application log and see what the model actually received: ordered message roles, tool calls, restored line breaks and readable nested JSON. Processing stays in your browser."
   path="/prompt"
   faq={[
     {
@@ -26,6 +26,10 @@ import PromptToolLinks from '../components/PromptToolLinks.astro';
     {
       q: 'Does formatting change what the model received?',
       a: 'The formatter creates a readable view for inspection. Always compare the formatted result with the original log before reusing it as an exact API payload.',
+    },
+    {
+      q: 'Can it find secrets in a prompt log?',
+      a: 'It warns about several common token, private-key and email patterns and can copy a redacted draft, but automated detection is incomplete. Review every message and tool result before sharing.',
     },
   ]}
 >
@@ -72,6 +76,16 @@ import PromptToolLinks from '../components/PromptToolLinks.astro';
       screenshot or copied result.
     </p>
 
+    <h2 class="mt-6 text-xl font-bold text-slate-900">Sensitive-data warning and redacted drafts</h2>
+    <p class="mt-2">
+      When the input resembles a bearer token, common API key, private key or email address, the tool
+      displays a local warning. You can copy a redacted draft that replaces those detected patterns,
+      but it is only a first pass. Customer text, internal policies, identifiers and tool results still
+      require human review. Follow the
+      <a class="text-brand-600 underline" href="/guides/redact-secrets-from-prompt-logs/">prompt log redaction checklist</a>
+      before sharing a trace.
+    </p>
+
     <h2 class="mt-6 text-xl font-bold text-slate-900">Frequently asked questions</h2>
     <h3 class="mt-4 font-semibold text-slate-800">Does it work with ChatGPT / OpenAI prompts?</h3>
     <p class="mt-1">
@@ -88,6 +102,11 @@ import PromptToolLinks from '../components/PromptToolLinks.astro';
     <p class="mt-1">
       The formatter creates a readable view for inspection. Always compare the formatted result with
       the original log before reusing it as an exact API payload.
+    </p>
+    <h3 class="mt-4 font-semibold text-slate-800">Can it find secrets in a prompt log?</h3>
+    <p class="mt-1">
+      It warns about several common token, private-key and email patterns and can copy a redacted
+      draft, but automated detection is incomplete. Review every message and tool result before sharing.
     </p>
 
     <PromptToolLinks current="/prompt" />

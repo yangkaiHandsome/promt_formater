@@ -1,0 +1,143 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+---
+
+<PageLayout
+  title="How to Debug an LLM Request Payload"
+  description="Debug an OpenAI or Claude request payload step by step: verify message order, system instructions, tool arguments, escaping and the exact data sent by your app."
+  h1="How to Debug an LLM Request Payload"
+  path="/guides/debug-llm-request-payload"
+  article
+  published="2026-07-20"
+  updated="2026-07-20"
+>
+  <p>
+    An LLM request can be valid JSON and still be the wrong request. The model may receive an old
+    system instruction, duplicated history, stringified tool arguments or a truncated document. The
+    reliable way to debug it is to inspect the final serialized payload at the network boundary—not
+    the prompt template you expected your application to build.
+  </p>
+
+  <blockquote>
+    <strong>Short version:</strong> preserve the raw request, format a copy, verify fields from the
+    outside in, then compare the payload with the code path that produced it. Treat formatting as a
+    viewing aid, not as evidence that the request was correct.
+  </blockquote>
+
+  <h2>Start with the request that crossed the boundary</h2>
+  <p>
+    Log the object immediately before the SDK or HTTP client sends it. Earlier objects may still be
+    changed by middleware, prompt assemblers, message trimming or provider adapters. A useful trace
+    includes the provider, model, endpoint, request body and a correlation ID. Avoid logging API keys
+    or authorization headers.
+  </p>
+  <p>
+    Copy that request into the <a href="/prompt/">LLM Request Inspector</a>. It separates system,
+    user, assistant and tool messages while preserving their order. Keep the original raw entry next
+    to the formatted view so you can return to exact escaping and field names.
+  </p>
+
+  <h2>Verify the outer request fields first</h2>
+  <p>
+    Before reading the conversation, confirm the provider-level settings. A request sent to the wrong
+    model or with an unexpected response mode can make correct prompt text behave differently.
+  </p>
+  <ul>
+    <li><strong>Model:</strong> is it the model configured for this environment?</li>
+    <li><strong>Token limit:</strong> can the response fit, or is it being cut short?</li>
+    <li><strong>Temperature:</strong> was a deterministic workflow given a high-randomness value?</li>
+    <li><strong>Response format:</strong> does the app expect text, JSON or tool use?</li>
+    <li><strong>Tools:</strong> are names, descriptions and required fields present?</li>
+  </ul>
+
+  <h2>Read messages in the order the model received them</h2>
+  <p>
+    Message order is part of the input. Do not group all user messages together for convenience.
+    Walk the sequence from top to bottom and ask what information was available at each assistant
+    turn. Look for duplicated context, stale summaries and tool results attached after the message
+    that was supposed to use them.
+  </p>
+  <pre><code>{`system: You may only answer from the supplied document.
+user: Summarize the cancellation policy.
+assistant: I do not have the document.
+user: [document inserted here]`}</code></pre>
+  <p>
+    In this example the document exists in the payload, but it arrives after the assistant response.
+    Formatting exposes the sequencing error immediately.
+  </p>
+
+  <h2>Inspect system and developer instructions for conflicts</h2>
+  <p>
+    Long system prompts often accumulate instructions from several layers. Search for repeated
+    requirements about output format, language, tool use and refusal behavior. If two instructions
+    conflict, identify which layer injected each one instead of adding a third instruction to cancel
+    the previous two.
+  </p>
+  <p>
+    Also check templated values. An empty placeholder such as <code>{`{{customer_policy}}`}</code> may
+    leave a grammatical sentence that looks plausible while silently removing the only source the
+    model was meant to use.
+  </p>
+
+  <h2>Decode tool calls as structured data</h2>
+  <p>
+    Tool arguments are a common source of double serialization. The application may expect an object
+    but receive a JSON string containing another JSON document. Pretty-print the arguments and inspect
+    their actual type before changing a schema.
+  </p>
+  <pre><code>{`// Expected
+{"account_id":"acct_42","include_archived":false}
+
+// Accidentally sent as a string
+"{\"account_id\":\"acct_42\",\"include_archived\":false}"`}</code></pre>
+  <p>
+    Use the <a href="/json/">JSON Formatter &amp; Validator</a> for a nested block that will not
+    parse. A line-and-column error usually points near the failure, but the real mistake may be an
+    unescaped quote or missing comma immediately before it.
+  </p>
+
+  <h2>Check escaping only after structure</h2>
+  <p>
+    Literal <code>\n</code> can mean either an escaped line break in a serialized string or the two
+    characters the model actually received. Determine which serialization layer you copied from
+    before replacing it. Repeatedly unescaping a value can corrupt examples that intentionally teach
+    escape sequences.
+  </p>
+  <p>
+    If the log is clearly a string representation, the <a href="/unescape-prompt/">Unescape Prompt</a>
+    tool can restore readable whitespace. Compare the result with the raw value before using it in a
+    reproduction.
+  </p>
+
+  <h2>Build the smallest faithful reproduction</h2>
+  <p>
+    Once you find a suspicious section, remove unrelated history while preserving the provider,
+    model, system instruction, failing message and relevant tool schema. A useful reproduction is not
+    merely short; it retains the condition that causes the failure. Change one variable at a time and
+    record which payload produced each result.
+  </p>
+  <ol>
+    <li>Save the original request and response under one correlation ID.</li>
+    <li>Redact secrets and customer data without changing message structure.</li>
+    <li>Remove unrelated turns and run the request again.</li>
+    <li>Change the suspected field only.</li>
+    <li>Compare the two payloads with the <a href="/diff/">Text Diff Checker</a>.</li>
+  </ol>
+
+  <h2>Use a repeatable request checklist</h2>
+  <ul>
+    <li>The logged payload is captured at the send boundary.</li>
+    <li>The provider, model and response mode match the intended environment.</li>
+    <li>System and developer instructions contain no stale or conflicting text.</li>
+    <li>Messages and tool results appear in chronological order.</li>
+    <li>Tool argument types match the application contract.</li>
+    <li>Escaped content has been decoded exactly once.</li>
+    <li>The reproduction contains no credentials or personal data.</li>
+  </ul>
+
+  <p>
+    Start with the <a href="/prompt/">LLM Request Inspector</a> when the payload is difficult to read,
+    then move to JSON validation and diffing only for the blocks that need closer inspection. This
+    keeps the debugging trail faithful to what the model actually received.
+  </p>
+</PageLayout>
